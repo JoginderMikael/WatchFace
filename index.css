@@ -386,35 +386,61 @@ body {
 /* Hour Hand */
 .hour-hand {
   width: 10px;
-  height: 100px;
+  height: 85px; /* 100px total including tip */
   background: var(--text-main);
   margin-left: -5px;
-  border-radius: 6px 6px 2px 2px;
+  border-radius: 0 0 2px 2px;
 }
 
 .hour-hand::before {
   content: '';
   position: absolute;
-  top: 15px; left: 2px; right: 2px; bottom: 15px;
+  top: 10px; left: 2px; right: 2px; bottom: 5px;
   background: rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
+  border-radius: 1px;
+}
+
+/* Sharp pointy tip for hour hand */
+.hour-hand::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 15px solid var(--text-main);
 }
 
 /* Minute Hand */
 .minute-hand {
   width: 6px;
-  height: 150px;
+  height: 135px; /* 150px total including tip */
   background: var(--text-main);
   margin-left: -3px;
-  border-radius: 4px 4px 1.5px 1.5px;
+  border-radius: 0 0 1.5px 1.5px;
 }
 
 .minute-hand::before {
   content: '';
   position: absolute;
-  top: 20px; left: 1.5px; right: 1.5px; bottom: 20px;
+  top: 15px; left: 1.5px; right: 1.5px; bottom: 5px;
   background: rgba(255, 255, 255, 0.45);
-  border-radius: 2px;
+  border-radius: 1px;
+}
+
+/* Sharp pointy tip for minute hand */
+.minute-hand::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 15px solid var(--text-main);
 }
 
 /* Second Hand (Continuous Sweep) */
@@ -423,7 +449,7 @@ body {
   height: 185px;
   background: var(--accent);
   margin-left: -1px;
-  border-radius: 1px;
+  border-radius: 1px 1px 0 0; /* Pointy rounded tip */
   z-index: 8;
   /* Counterweight design details */
 }
@@ -487,6 +513,11 @@ body {
 .lume-active .minute-hand::before {
   background: var(--lume-glow);
   box-shadow: inset 0 0 6px var(--lume-glow);
+}
+
+.lume-active .hour-hand::after,
+.lume-active .minute-hand::after {
+  border-bottom-color: var(--lume-glow-dim);
 }
 
 .lume-active .num-12,
@@ -961,14 +992,28 @@ input:checked + .slider:before {
   
   .hour-hand {
     width: 6px;
-    height: 65px;
+    height: 55px; /* 65px total including tip */
     margin-left: -3px;
+  }
+  
+  .hour-hand::after {
+    top: -10px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 10px;
   }
   
   .minute-hand {
     width: 4px;
-    height: 95px;
+    height: 85px; /* 95px total including tip */
     margin-left: -2px;
+  }
+  
+  .minute-hand::after {
+    top: -10px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 10px;
   }
   
   .second-hand {
