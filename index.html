@@ -58,18 +58,6 @@
               </div>
             </div>
 
-            <!-- Sub-dial 3: Battery Indicator / Power Reserve (Right Center) -->
-            <div class="sub-dial sub-dial-battery" id="subDialBattery" aria-label="Battery Status Indicator">
-              <div class="sub-dial-bg"></div>
-              <svg class="battery-ring" viewBox="0 0 100 100">
-                <circle class="ring-bg" cx="50" cy="50" r="42" />
-                <circle class="ring-progress" id="batteryProgressRing" cx="50" cy="50" r="42" />
-              </svg>
-              <div class="battery-content">
-                <span class="battery-label">BATT</span>
-                <span class="battery-value" id="batteryValue">85%</span>
-              </div>
-            </div>
 
             <!-- Analog Clock Hands -->
             <div class="hand hour-hand" id="hourHand">
@@ -166,13 +154,6 @@
           </label>
         </div>
 
-        <div class="control-row-vertical">
-          <div class="control-info-between">
-            <span class="control-title">Battery Level</span>
-            <span class="control-value-display" id="batterySliderVal">85%</span>
-          </div>
-          <input type="range" id="batterySlider" class="range-slider" min="0" max="100" value="85" aria-label="Simulate Watch Battery Level">
-        </div>
       </div>
 
       <!-- Footer Info -->

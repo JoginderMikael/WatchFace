@@ -13,10 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const weatherTemp = document.getElementById('weatherTemp');
   const weatherDesc = document.getElementById('weatherDesc');
   
-  const batteryProgressRing = document.getElementById('batteryProgressRing');
-  const batteryValue = document.getElementById('batteryValue');
-  const batterySlider = document.getElementById('batterySlider');
-  const batterySliderVal = document.getElementById('batterySliderVal');
   
   const lumeToggle = document.getElementById('lumeToggle');
   const soundToggle = document.getElementById('soundToggle');
@@ -173,30 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Battery Level Ring Control
-  // Circumference of the battery progress circle is 2 * PI * 42 = 263.89
-  const RING_CIRCUMFERENCE = 2 * Math.PI * 42;
-  batteryProgressRing.style.strokeDasharray = `${RING_CIRCUMFERENCE}`;
-
-  function setBattery(percentage) {
-    const val = Math.min(Math.max(percentage, 0), 100);
-    batteryValue.textContent = `${val}%`;
-    batterySlider.value = val;
-    batterySliderVal.textContent = `${val}%`;
-    
-    // Calculate off-set
-    const offset = RING_CIRCUMFERENCE - (val / 100) * RING_CIRCUMFERENCE;
-    batteryProgressRing.style.strokeDashoffset = offset;
-    
-    // Change progress stroke color based on capacity for realistic dashboard alerts
-    if (val <= 20) {
-      batteryProgressRing.style.stroke = '#e74c3c'; // Danger red
-    } else if (val <= 50) {
-      batteryProgressRing.style.stroke = '#f39c12'; // Warning orange
-    } else {
-      batteryProgressRing.style.stroke = 'var(--accent)'; // Standard Accent color
-    }
-  }
 
   // Synthesize Ticking sound using Web Audio API
   function initAudio() {
@@ -280,8 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('lume-active');
       }
       
-      // Re-trigger battery setting to update ring color accent
-      setBattery(batterySlider.value);
     });
   });
 
@@ -309,10 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Battery Slider
-  batterySlider.addEventListener('input', (e) => {
-    setBattery(e.target.value);
-  });
 
   // Audio Tick-tock Switcher
   soundToggle.addEventListener('change', (e) => {
@@ -327,5 +293,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initTicks();
   updateClock();
   setWeather('sunny'); // Default starting weather state
-  setBattery(85);      // Default starting battery state
 });
