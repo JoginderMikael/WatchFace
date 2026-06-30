@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Weather SVG Presets
   const weatherPresets = {
     sunny: {
-      temp: '76°F',
+      temp: '24°C',
       desc: 'Clear Sky',
       svg: `
         <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Sunny weather icon">
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     cloudy: {
-      temp: '64°F',
+      temp: '18°C',
       desc: 'Overcast',
       svg: `
         <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Cloudy weather icon">
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     rainy: {
-      temp: '58°F',
+      temp: '14°C',
       desc: 'Showers',
       svg: `
         <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Rainy weather icon">
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     stormy: {
-      temp: '62°F',
+      temp: '17°C',
       desc: 'T-Storm',
       svg: `
         <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Stormy weather icon">
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `
     },
     snowy: {
-      temp: '28°F',
+      temp: '-2°C',
       desc: 'Snowing',
       svg: `
         <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Snowy weather icon">
