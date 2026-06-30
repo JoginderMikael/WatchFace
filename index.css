@@ -1,0 +1,1075 @@
+/* Define Accent Theme Variables and Core Variables */
+:root {
+  --font-display: 'Outfit', sans-serif;
+  --font-tech: 'Orbitron', sans-serif;
+  --font-digital: 'Share Tech Mono', monospace;
+
+  /* Neutral Dark Theme colors */
+  --bg-app: #08090c;
+  --bg-dashboard: rgba(13, 16, 23, 0.7);
+  --bg-watch-case: linear-gradient(135deg, #2d3238 0%, #15181b 50%, #0b0c0e 100%);
+  --bg-dial: radial-gradient(circle at center, #1b2028 0%, #090b0e 100%);
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-glass: rgba(255, 255, 255, 0.07);
+  --bg-glass-subdial: rgba(0, 0, 0, 0.35);
+
+  /* Lume Green colors (Phosphorescent glow) */
+  --lume-glow: #00ff66;
+  --lume-glow-dim: #008f39;
+}
+
+/* Theme accent definitions */
+body.theme-gold {
+  --accent: #f5b041;
+  --accent-glow: rgba(245, 176, 65, 0.4);
+  --accent-gradient: linear-gradient(135deg, #f5b041, #f39c12);
+  --watch-bezel-accent: linear-gradient(135deg, #e5c07b 0%, #aa7c11 30%, #ffd700 50%, #b8860b 70%, #d4af37 100%);
+}
+
+body.theme-cyan {
+  --accent: #00f0ff;
+  --accent-glow: rgba(0, 240, 255, 0.4);
+  --accent-gradient: linear-gradient(135deg, #00f0ff, #00a8ff);
+  --watch-bezel-accent: linear-gradient(135deg, #5de0e6 0%, #008b8b 30%, #00ffff 50%, #008080 70%, #48d1cc 100%);
+}
+
+body.theme-emerald {
+  --accent: #2ecc71;
+  --accent-glow: rgba(46, 204, 113, 0.4);
+  --accent-gradient: linear-gradient(135deg, #2ecc71, #27ae60);
+  --watch-bezel-accent: linear-gradient(135deg, #a3e4d7 0%, #117864 30%, #2ecc71 50%, #196f3d 70%, #58d68d 100%);
+}
+
+body.theme-orange {
+  --accent: #ff6b35;
+  --accent-glow: rgba(255, 107, 53, 0.4);
+  --accent-gradient: linear-gradient(135deg, #ff6b35, #d35400);
+  --watch-bezel-accent: linear-gradient(135deg, #edbb99 0%, #a04000 30%, #e67e22 50%, #78281f 70%, #dc7633 100%);
+}
+
+/* Reset and Layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* App container */
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  width: 100%;
+  max-width: 1400px;
+  min-height: 90vh;
+  margin: 20px;
+  background: rgba(10, 12, 17, 0.6);
+  border-radius: 24px;
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Ambient Background Glow */
+.bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+  z-index: 1;
+  pointer-events: none;
+  transition: background 0.8s ease;
+}
+
+/* --- Watch Face Section --- */
+.watch-display-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 40px;
+  z-index: 3;
+}
+
+.watch-case-shadow {
+  position: absolute;
+  width: 530px;
+  height: 530px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.watch-case {
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: var(--bg-watch-case);
+  padding: 10px; /* Space for physical bezel outer ring */
+  box-shadow: 
+    inset 0 4px 6px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.6),
+    0 15px 35px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Outer physical watch detailing */
+.watch-case::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.2) 50%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+}
+
+.watch-bezel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--watch-bezel-accent);
+  padding: 14px; /* Width of mechanical looking bezel */
+  box-shadow: 
+    inset 0 2px 3px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.5),
+    0 4px 8px rgba(0, 0, 0, 0.6);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.8s ease;
+}
+
+/* Glass reflection layer */
+.watch-glass {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.02) 60%, rgba(255, 255, 255, 0.08) 100%);
+  z-index: 10;
+  pointer-events: none;
+  box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.watch-dial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--bg-dial);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 10px 25px rgba(0, 0, 0, 0.95),
+    0 2px 4px rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hour and Minute Ticks */
+.ticks-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: 0 226px; /* Centered in dial */
+  background: var(--text-muted);
+  width: 2px;
+  height: 8px;
+  margin-left: -1px;
+}
+
+.tick.hour {
+  width: 4px;
+  height: 16px;
+  background: var(--text-main);
+  margin-left: -2px;
+}
+
+.tick.hour-accent {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* Lume mode ticking glow */
+.lume-active .tick.hour {
+  background: var(--lume-glow);
+  box-shadow: 0 0 8px var(--lume-glow);
+}
+
+.lume-active .tick.minute {
+  background: var(--lume-glow-dim);
+}
+
+/* Dial Main numbers (12, 3, 6, 9) */
+.hour-numbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.hour-numbers .num {
+  position: absolute;
+  font-family: var(--font-tech);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-main);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transform: translate(-50%, -50%);
+}
+
+.hour-numbers .num-12 { top: 38px; left: 50%; color: var(--accent); }
+.hour-numbers .num-3  { top: 50%; left: calc(100% - 38px); }
+.hour-numbers .num-6  { top: calc(100% - 38px); left: 50%; }
+.hour-numbers .num-9  { top: 50%; left: 38px; }
+
+/* Sub-dials (Glassmorphic modules) */
+.sub-dial {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  box-shadow: 
+    inset 0 4px 10px rgba(0, 0, 0, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sub-dial-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-glass-subdial);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
+/* Position of Sub-dials */
+.sub-dial-weather {
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 105px;
+  height: 105px;
+  z-index: 4;
+}
+
+.sub-dial-digital {
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 80px;
+  border-radius: 12px; /* Rectangular module */
+  z-index: 4;
+}
+
+.sub-dial-battery {
+  top: 170px;
+  right: 60px;
+  width: 80px;
+  height: 80px;
+  z-index: 4;
+}
+
+/* Sub-dial 1: Weather Styling */
+.weather-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.weather-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-temp {
+  font-family: var(--font-tech);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.weather-desc {
+  font-size: 8px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1px;
+}
+
+/* Sub-dial 2: Digital Clock & Date Styling */
+.digital-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.digital-date {
+  font-family: var(--font-tech);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+
+.digital-time {
+  font-family: var(--font-digital);
+  font-size: 18px;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.digital-ampm {
+  font-family: var(--font-tech);
+  font-size: 7px;
+  color: var(--text-muted);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+}
+
+/* Sub-dial 3: Battery Circle Styling */
+.battery-ring {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  transform: rotate(-90deg);
+  z-index: 2;
+}
+
+.battery-ring circle {
+  fill: none;
+  stroke-width: 5;
+}
+
+.battery-ring .ring-bg {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.battery-ring .ring-progress {
+  stroke: var(--accent);
+  stroke-dasharray: 264; /* 2 * PI * r (r=42) */
+  stroke-dashoffset: 40; /* Updated dynamically */
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.8s ease;
+}
+
+.battery-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.battery-label {
+  font-size: 8px;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.battery-value {
+  font-family: var(--font-tech);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* --- Watch Hands (Analog Sweep) --- */
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  z-index: 6;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* Hour Hand */
+.hour-hand {
+  width: 10px;
+  height: 100px;
+  background: var(--text-main);
+  margin-left: -5px;
+  border-radius: 6px 6px 2px 2px;
+  position: relative;
+}
+
+.hour-hand::before {
+  content: '';
+  position: absolute;
+  top: 15px; left: 2px; right: 2px; bottom: 15px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+/* Minute Hand */
+.minute-hand {
+  width: 6px;
+  height: 150px;
+  background: var(--text-main);
+  margin-left: -3px;
+  border-radius: 4px 4px 1.5px 1.5px;
+  position: relative;
+}
+
+.minute-hand::before {
+  content: '';
+  position: absolute;
+  top: 20px; left: 1.5px; right: 1.5px; bottom: 20px;
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 2px;
+}
+
+/* Second Hand (Continuous Sweep) */
+.second-hand {
+  width: 2px;
+  height: 185px;
+  background: var(--accent);
+  margin-left: -1px;
+  border-radius: 1px;
+  z-index: 8;
+  position: relative;
+  /* Counterweight design details */
+}
+
+/* Counterweight circle at bottom of second hand */
+.second-hand::before {
+  content: '';
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 35px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+.second-hand::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Center Pivot Hub styling */
+.center-hub {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #555 0%, #1a1a1a 80%, #000 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  z-index: 9;
+}
+
+.center-hub-pin {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+  z-index: 10;
+}
+
+/* Lume mode glowing hands overrides */
+.lume-active .hour-hand,
+.lume-active .minute-hand {
+  background: var(--lume-glow-dim);
+  box-shadow: 0 0 15px var(--lume-glow);
+}
+
+.lume-active .hour-hand::before,
+.lume-active .minute-hand::before {
+  background: var(--lume-glow);
+  box-shadow: inset 0 0 6px var(--lume-glow);
+}
+
+.lume-active .num-12,
+.lume-active .num-3,
+.lume-active .num-6,
+.lume-active .num-9 {
+  color: var(--lume-glow) !important;
+  text-shadow: 0 0 8px var(--lume-glow);
+}
+
+.lume-active .sub-dial {
+  border-color: rgba(0, 255, 102, 0.15);
+}
+
+/* --- Control Dashboard Sidebar Panel --- */
+.dashboard-panel {
+  background: var(--bg-dashboard);
+  border-left: 1px solid var(--border-glass);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  overflow-y: auto;
+  z-index: 3;
+}
+
+.dashboard-header h1 {
+  font-family: var(--font-tech);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+  transition: background 0.8s ease;
+}
+
+.dashboard-header .subtitle {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-section h2 {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+  transition: color 0.8s ease;
+}
+
+/* Grid Layout for Theme Buttons */
+.theme-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.theme-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.theme-btn.active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent);
+  color: var(--text-main);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Weather Simulation Grid */
+.weather-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.weather-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.weather-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+
+.weather-btn.active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent);
+  color: var(--text-main);
+}
+
+.weather-btn .btn-icon {
+  font-size: 16px;
+}
+
+/* Form Controls (Switches and Sliders) */
+.control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.control-row-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0;
+}
+
+.control-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 75%;
+}
+
+.control-info-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.control-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.control-description {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.control-value-display {
+  font-family: var(--font-tech);
+  font-size: 12px;
+  color: var(--accent);
+}
+
+/* Switch styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-glass);
+  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-main);
+  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+input:checked + .slider {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+  background-color: #000;
+}
+
+/* Range input styling */
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  transition: background 0.3s;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transition: transform 0.1s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.dashboard-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-footer p {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* --- Weather Icons SVGs Animations --- */
+.weather-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sun-element {
+  fill: #f39c12;
+  transform-origin: center;
+  animation: spin 16s linear infinite;
+}
+
+.cloud-element {
+  fill: #d5dbdb;
+  opacity: 0.95;
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+.cloud-dark-element {
+  fill: #7f8c8d;
+  opacity: 0.9;
+  animation: float-back 5s ease-in-out infinite alternate;
+}
+
+.raindrop-element {
+  stroke: #3498db;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  fill: none;
+  animation: fall 1.2s linear infinite;
+}
+
+.raindrop-element:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.raindrop-element:nth-child(3) {
+  animation-delay: 0.8s;
+}
+
+.lightning-element {
+  fill: #f1c40f;
+  animation: flash 2.5s ease-in-out infinite;
+}
+
+.snow-element {
+  fill: #ffffff;
+  animation: snowfall 2s linear infinite;
+}
+
+.snow-element:nth-child(2) {
+  animation-delay: 0.6s;
+  animation-duration: 2.5s;
+}
+
+.snow-element:nth-child(3) {
+  animation-delay: 1.2s;
+  animation-duration: 1.8s;
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) translateX(0px); }
+  100% { transform: translateY(-3px) translateX(2px); }
+}
+
+@keyframes float-back {
+  0% { transform: translateY(0px) translateX(0px); }
+  100% { transform: translateY(-2px) translateX(-2px); }
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10px); opacity: 0; }
+  30% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0; }
+}
+
+@keyframes snowfall {
+  0% { transform: translateY(-10px) translateX(0px); opacity: 0; }
+  30% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(15px) translateX(5px); opacity: 0; }
+}
+
+@keyframes flash {
+  0%, 90%, 94%, 98%, 100% { opacity: 0; }
+  92%, 96% { opacity: 1; }
+}
+
+/* Responsive Scaling for Dashboard and Watch */
+@media (max-width: 950px) {
+  .app-container {
+    grid-template-columns: 1fr;
+    max-width: 550px;
+    margin: 10px;
+    min-height: auto;
+    overflow-y: auto;
+  }
+  
+  .watch-display-section {
+    padding: 30px;
+  }
+  
+  .dashboard-panel {
+    border-left: none;
+    border-top: 1px solid var(--border-glass);
+    padding: 30px;
+    max-height: 500px;
+  }
+  
+  .bg-glow {
+    left: 50%;
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 530px) {
+  .watch-case {
+    width: 320px;
+    height: 320px;
+    padding: 6px;
+  }
+  
+  .watch-bezel {
+    padding: 8px;
+  }
+  
+  .tick {
+    transform-origin: 0 142px;
+    height: 5px;
+  }
+  
+  .tick.hour {
+    height: 10px;
+    width: 3px;
+  }
+  
+  .hour-numbers .num {
+    font-size: 18px;
+  }
+  
+  .hour-numbers .num-12 { top: 22px; }
+  .hour-numbers .num-3  { right: 22px; left: auto; transform: translate(50%, -50%); }
+  .hour-numbers .num-6  { bottom: 22px; top: auto; }
+  .hour-numbers .num-9  { left: 22px; }
+  
+  .sub-dial-weather {
+    top: 55px;
+    width: 70px;
+    height: 70px;
+  }
+  
+  .weather-icon-wrapper {
+    width: 26px;
+    height: 26px;
+  }
+  
+  .weather-temp {
+    font-size: 9px;
+  }
+  
+  .weather-desc {
+    display: none;
+  }
+  
+  .sub-dial-digital {
+    bottom: 50px;
+    width: 100px;
+    height: 55px;
+  }
+  
+  .digital-date {
+    font-size: 7px;
+  }
+  
+  .digital-time {
+    font-size: 13px;
+  }
+  
+  .digital-ampm {
+    right: 8px;
+    bottom: 4px;
+    font-size: 5px;
+  }
+  
+  .sub-dial-battery {
+    top: 105px;
+    right: 35px;
+    width: 55px;
+    height: 55px;
+  }
+  
+  .battery-value {
+    font-size: 9px;
+  }
+  
+  .battery-label {
+    font-size: 5px;
+  }
+  
+  .battery-ring circle {
+    stroke-width: 4;
+  }
+  
+  .hour-hand {
+    width: 6px;
+    height: 65px;
+    margin-left: -3px;
+  }
+  
+  .minute-hand {
+    width: 4px;
+    height: 95px;
+    margin-left: -2px;
+  }
+  
+  .second-hand {
+    width: 1.5px;
+    height: 115px;
+  }
+  
+  .second-hand::before {
+    bottom: -15px;
+    height: 20px;
+  }
+  
+  .second-hand::after {
+    bottom: -12px;
+    width: 8px;
+    height: 8px;
+  }
+  
+  .center-hub {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .center-hub-pin {
+    width: 6px;
+    height: 6px;
+  }
+}

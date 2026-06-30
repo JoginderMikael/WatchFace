@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Chrono - Premium Hybrid Watch Face</title>
+  <meta name="description" content="A premium luxury hybrid smartwatch face featuring a continuous sweeping analog mechanism, digital time & date readout, animated weather indicators, and high-fidelity customization dashboard.">
+  <link rel="stylesheet" href="index.css">
+  <!-- Google Fonts for luxury and tech aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Outfit:wght@300;400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="theme-gold">
+  <main class="app-container">
+    <!-- Background visual effects -->
+    <div class="bg-glow"></div>
+    
+    <!-- Watch Presentation Section -->
+    <section class="watch-display-section" aria-label="Smartwatch Preview">
+      <div class="watch-case-shadow"></div>
+      <!-- Physical Watch Hardware -->
+      <div class="watch-case">
+        <div class="watch-bezel">
+          <!-- Glass reflection element -->
+          <div class="watch-glass"></div>
+          
+          <!-- Inner Dial -->
+          <div class="watch-dial" id="watchDial">
+            <!-- Hour & Minute Dial Markers (will be populated dynamically by JS, but keeping anchor markings) -->
+            <div class="hour-numbers">
+              <span class="num num-12">12</span>
+              <span class="num num-3">3</span>
+              <span class="num num-6">6</span>
+              <span class="num num-9">9</span>
+            </div>
+            <div class="ticks-container" id="ticksContainer"></div>
+
+            <!-- Sub-dial 1: Weather (Top/Left Center depending on balance) -->
+            <div class="sub-dial sub-dial-weather" id="subDialWeather" aria-label="Weather Display">
+              <div class="sub-dial-bg"></div>
+              <div class="weather-content">
+                <div class="weather-icon-wrapper" id="weatherIconContainer">
+                  <!-- Active SVG weather icon will be rendered here -->
+                </div>
+                <span class="weather-temp" id="weatherTemp">72°F</span>
+                <span class="weather-desc" id="weatherDesc">Clear Sky</span>
+              </div>
+            </div>
+
+            <!-- Sub-dial 2: Digital Clock & Calendar (Bottom Center) -->
+            <div class="sub-dial sub-dial-digital" id="subDialDigital" aria-label="Digital Clock and Date">
+              <div class="sub-dial-bg"></div>
+              <div class="digital-content">
+                <div class="digital-date" id="digitalDate">TUE, JUN 30</div>
+                <div class="digital-time" id="digitalTime">19:53:06</div>
+                <div class="digital-ampm" id="digitalAmPm">PM</div>
+              </div>
+            </div>
+
+            <!-- Sub-dial 3: Battery Indicator / Power Reserve (Right Center) -->
+            <div class="sub-dial sub-dial-battery" id="subDialBattery" aria-label="Battery Status Indicator">
+              <div class="sub-dial-bg"></div>
+              <svg class="battery-ring" viewBox="0 0 100 100">
+                <circle class="ring-bg" cx="50" cy="50" r="42" />
+                <circle class="ring-progress" id="batteryProgressRing" cx="50" cy="50" r="42" />
+              </svg>
+              <div class="battery-content">
+                <span class="battery-label">BATT</span>
+                <span class="battery-value" id="batteryValue">85%</span>
+              </div>
+            </div>
+
+            <!-- Analog Clock Hands -->
+            <div class="hand hour-hand" id="hourHand">
+              <div class="hand-cap-cover"></div>
+            </div>
+            <div class="hand minute-hand" id="minuteHand">
+              <div class="hand-cap-cover"></div>
+            </div>
+            <div class="hand second-hand" id="secondHand"></div>
+            
+            <!-- Dial Center Pivot Hub -->
+            <div class="center-hub"></div>
+            <div class="center-hub-pin"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customization Dashboard Sidebar -->
+    <aside class="dashboard-panel" aria-label="Watch Configuration Controls">
+      <header class="dashboard-header">
+        <h1>AURA CHRONO</h1>
+        <p class="subtitle">Premium Hybrid Craftsmanship</p>
+      </header>
+
+      <!-- Panel Section: Theme Accent Colors -->
+      <div class="panel-section">
+        <h2>Accent Theme</h2>
+        <div class="theme-selector-grid">
+          <button class="theme-btn gold active" data-theme="gold" aria-label="Gold Accent Theme">
+            <span class="color-dot" style="background: linear-gradient(135deg, #f39c12, #f1c40f);"></span>
+            <span class="btn-label">Rose Gold</span>
+          </button>
+          <button class="theme-btn cyan" data-theme="cyan" aria-label="Cyber Cyan Accent Theme">
+            <span class="color-dot" style="background: linear-gradient(135deg, #00d2ff, #00a8ff);"></span>
+            <span class="btn-label">Cyan Neon</span>
+          </button>
+          <button class="theme-btn emerald" data-theme="emerald" aria-label="Emerald Green Accent Theme">
+            <span class="color-dot" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"></span>
+            <span class="btn-label">Emerald</span>
+          </button>
+          <button class="theme-btn orange" data-theme="orange" aria-label="Sunset Orange Accent Theme">
+            <span class="color-dot" style="background: linear-gradient(135deg, #e67e22, #d35400);"></span>
+            <span class="btn-label">Sunset</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Section: Weather Simulation -->
+      <div class="panel-section">
+        <h2>Simulate Weather</h2>
+        <div class="weather-selector-grid">
+          <button class="weather-btn active" data-weather="sunny" aria-label="Simulate Sunny Weather">
+            <span class="btn-icon">☀️</span> Sunny
+          </button>
+          <button class="weather-btn" data-weather="cloudy" aria-label="Simulate Cloudy Weather">
+            <span class="btn-icon">☁️</span> Cloudy
+          </button>
+          <button class="weather-btn" data-weather="rainy" aria-label="Simulate Rainy Weather">
+            <span class="btn-icon">🌧️</span> Rainy
+          </button>
+          <button class="weather-btn" data-weather="stormy" aria-label="Simulate Stormy Weather">
+            <span class="btn-icon">⛈️</span> Stormy
+          </button>
+          <button class="weather-btn" data-weather="snowy" aria-label="Simulate Snowy Weather">
+            <span class="btn-icon">❄️</span> Snowy
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel Section: Interactive Controls -->
+      <div class="panel-section">
+        <h2>Interactive Controls</h2>
+        
+        <div class="control-row">
+          <div class="control-info">
+            <span class="control-title">Lume Mode</span>
+            <span class="control-description">Low-light photoluminescent dial glow</span>
+          </div>
+          <label class="switch" for="lumeToggle">
+            <input type="checkbox" id="lumeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="control-row">
+          <div class="control-info">
+            <span class="control-title">Audio Tick-Tock</span>
+            <span class="control-description">High-fidelity simulated watch mechanical sound</span>
+          </div>
+          <label class="switch" for="soundToggle">
+            <input type="checkbox" id="soundToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="control-row-vertical">
+          <div class="control-info-between">
+            <span class="control-title">Battery Level</span>
+            <span class="control-value-display" id="batterySliderVal">85%</span>
+          </div>
+          <input type="range" id="batterySlider" class="range-slider" min="0" max="100" value="85" aria-label="Simulate Watch Battery Level">
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer class="dashboard-footer">
+        <p>Built with Vanilla HTML/CSS/JS</p>
+        <p>Sweeping second mechanism updates at 60 FPS.</p>
+      </footer>
+    </aside>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>
