@@ -10,86 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const digitalAmPm = document.getElementById('digitalAmPm');
   
   const weatherIconContainer = document.getElementById('weatherIconContainer');
-  const weatherTemp = document.getElementById('weatherTemp');
-  const weatherDesc = document.getElementById('weatherDesc');
+  let activeCelestialIcon = null;
   
   
   const lumeToggle = document.getElementById('lumeToggle');
   const soundToggle = document.getElementById('soundToggle');
   
-  // Weather SVG Presets
-  const weatherPresets = {
-    sunny: {
-      temp: '24°C',
-      desc: 'Clear Sky',
-      svg: `
-        <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Sunny weather icon">
-          <circle class="sun-element" cx="50" cy="50" r="20" />
-          <g class="sun-element" style="stroke: #f39c12; stroke-width: 4; stroke-linecap: round;">
-            <line x1="50" y1="10" x2="50" y2="20" />
-            <line x1="50" y1="80" x2="50" y2="90" />
-            <line x1="10" y1="50" x2="20" y2="50" />
-            <line x1="80" y1="50" x2="90" y2="50" />
-            <line x1="22" y1="22" x2="29" y2="29" />
-            <line x1="71" y1="71" x2="78" y2="78" />
-            <line x1="78" y1="22" x2="71" y2="29" />
-            <line x1="29" y1="71" x2="22" y2="78" />
-          </g>
-        </svg>
-      `
-    },
-    cloudy: {
-      temp: '18°C',
-      desc: 'Overcast',
-      svg: `
-        <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Cloudy weather icon">
-          <path class="cloud-dark-element" d="M28 62h32a13 13 0 0 0 3-25.5 16 16 0 0 0-30-5A11 11 0 0 0 18 45a14 14 0 0 0 10 17z" />
-          <path class="cloud-element" d="M38 72h32a13 13 0 0 0 3-25.5 16 16 0 0 0-30-5A11 11 0 0 0 28 55a14 14 0 0 0 10 17z" />
-        </svg>
-      `
-    },
-    rainy: {
-      temp: '14°C',
-      desc: 'Showers',
-      svg: `
-        <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Rainy weather icon">
-          <path class="cloud-element" d="M32 55h32a13 13 0 0 0 3-25.5 16 16 0 0 0-30-5A11 11 0 0 0 22 38a14 14 0 0 0 10 17z" />
-          <g>
-            <line class="raindrop-element" x1="38" y1="62" x2="33" y2="74" />
-            <line class="raindrop-element" x1="48" y1="62" x2="43" y2="74" />
-            <line class="raindrop-element" x1="58" y1="62" x2="53" y2="74" />
-          </g>
-        </svg>
-      `
-    },
-    stormy: {
-      temp: '17°C',
-      desc: 'T-Storm',
-      svg: `
-        <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Stormy weather icon">
-          <path class="cloud-dark-element" d="M32 55h32a13 13 0 0 0 3-25.5 16 16 0 0 0-30-5A11 11 0 0 0 22 38a14 14 0 0 0 10 17z" />
-          <polygon class="lightning-element" points="46,55 53,68 45,70 50,83 39,69 47,67" />
-          <g>
-            <line class="raindrop-element" x1="34" y1="62" x2="29" y2="74" />
-            <line class="raindrop-element" x1="56" y1="62" x2="51" y2="74" />
-          </g>
-        </svg>
-      `
-    },
-    snowy: {
-      temp: '-2°C',
-      desc: 'Snowing',
-      svg: `
-        <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Snowy weather icon">
-          <path class="cloud-element" d="M32 55h32a13 13 0 0 0 3-25.5 16 16 0 0 0-30-5A11 11 0 0 0 22 38a14 14 0 0 0 10 17z" />
-          <g>
-            <circle class="snow-element" cx="35" cy="65" r="2.2" />
-            <circle class="snow-element" cx="47" cy="63" r="2.8" />
-            <circle class="snow-element" cx="58" cy="66" r="1.8" />
-          </g>
-        </svg>
-      `
-    }
+  const celestialIcons = {
+    sun: `
+      <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Sun icon">
+        <circle class="sun-core" cx="50" cy="50" r="18" />
+        <g class="sun-rays" style="stroke-width: 4; stroke-linecap: round;">
+          <line x1="50" y1="10" x2="50" y2="22" />
+          <line x1="50" y1="78" x2="50" y2="90" />
+          <line x1="10" y1="50" x2="22" y2="50" />
+          <line x1="78" y1="50" x2="90" y2="50" />
+          <line x1="22" y1="22" x2="30" y2="30" />
+          <line x1="70" y1="70" x2="78" y2="78" />
+          <line x1="78" y1="22" x2="70" y2="30" />
+          <line x1="30" y1="70" x2="22" y2="78" />
+        </g>
+      </svg>
+    `,
+    moon: `
+      <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Moon icon">
+        <circle class="moon-shell" cx="52" cy="50" r="24" />
+        <circle class="moon-cut" cx="64" cy="44" r="22" />
+      </svg>
+    `
   };
 
   // Web Audio Variables for Ticking Sound
@@ -125,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update Analog Clock Hands & Digital Clock
   function updateClock() {
     const now = new Date();
+    updateCelestialIcon(now);
     
     // 1. Continuous Analog Hands Rotations (Sweeping second hand)
     const ms = now.getMilliseconds();
@@ -159,14 +108,17 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(updateClock);
   }
 
-  // Weather Customizer Integration
-  function setWeather(weatherKey) {
-    const data = weatherPresets[weatherKey];
-    if (data) {
-      weatherIconContainer.innerHTML = data.svg;
-      weatherTemp.textContent = data.temp;
-      weatherDesc.textContent = data.desc;
+  // Day/Night icon integration
+  function updateCelestialIcon(now) {
+    const hour = now.getHours();
+    const nextIcon = (hour >= 18 || hour < 6) ? 'moon' : 'sun';
+
+    if (activeCelestialIcon === nextIcon) {
+      return;
     }
+
+    activeCelestialIcon = nextIcon;
+    weatherIconContainer.innerHTML = celestialIcons[nextIcon];
   }
 
 
@@ -255,19 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Weather Customizer Selectors
-  document.querySelectorAll('.weather-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const targetBtn = e.currentTarget;
-      const weatherKey = targetBtn.getAttribute('data-weather');
-      
-      document.querySelectorAll('.weather-btn').forEach(b => b.classList.remove('active'));
-      targetBtn.classList.add('active');
-      
-      setWeather(weatherKey);
-    });
-  });
-
   // Lume Mode Switcher
   lumeToggle.addEventListener('change', (e) => {
     if (e.target.checked) {
@@ -291,8 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bootstrapping the Watch face
   initTicks();
+  updateCelestialIcon(new Date());
   updateClock();
-  setWeather('sunny'); // Default starting weather state
 
   // Register Service Worker for PWA
   if ('serviceWorker' in navigator) {

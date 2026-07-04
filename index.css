@@ -305,34 +305,27 @@ body {
   position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 .weather-icon-wrapper {
-  width: 42px;
-  height: 42px;
-  margin-bottom: 2px;
+  width: 54px;
+  height: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .weather-temp {
-  font-family: var(--font-tech);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-main);
-  line-height: 1;
+  display: none;
 }
 
 .weather-desc {
-  font-size: 8px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 1px;
+  display: none;
 }
 
 /* Sub-dial 2: Digital Clock & Date Styling */
@@ -810,6 +803,25 @@ input:checked + .slider:before {
   animation: spin 16s linear infinite;
 }
 
+.sun-core {
+  fill: #f4b942;
+  filter: drop-shadow(0 0 8px rgba(244, 185, 66, 0.45));
+}
+
+.sun-rays {
+  stroke: #f4b942;
+  animation: spin 18s linear infinite;
+}
+
+.moon-shell {
+  fill: #d5dcf2;
+  filter: drop-shadow(0 0 8px rgba(213, 220, 242, 0.45));
+}
+
+.moon-cut {
+  fill: #1a1f28;
+}
+
 .cloud-element {
   fill: #d5dbdb;
   opacity: 0.95;
@@ -957,12 +969,8 @@ input:checked + .slider:before {
   }
   
   .weather-icon-wrapper {
-    width: 26px;
-    height: 26px;
-  }
-  
-  .weather-temp {
-    font-size: 9px;
+    width: 32px;
+    height: 32px;
   }
   
   .weather-desc {
