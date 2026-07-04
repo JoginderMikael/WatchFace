@@ -78,92 +78,66 @@
       </div>
     </section>
 
-    <!-- Customization Dashboard Sidebar -->
-    <aside class="dashboard-panel" aria-label="Watch Configuration Controls">
-      <header class="dashboard-header">
-        <h1>AURA CHRONO</h1>
-        <p class="subtitle">Premium Hybrid Craftsmanship</p>
-      </header>
+    <div class="controls-dropdown" id="controlsDropdown">
+      <button class="controls-toggle-btn" id="controlsToggleBtn" type="button" aria-expanded="false" aria-controls="controlsMenu" aria-label="Open watch controls">⚙ Controls</button>
 
-      <!-- Panel Section: Theme Accent Colors -->
-      <div class="panel-section">
-        <h2>Accent Theme</h2>
-        <div class="theme-selector-grid">
-          <button class="theme-btn gold active" data-theme="gold" aria-label="Gold Accent Theme">
-            <span class="color-dot" style="background: linear-gradient(135deg, #f39c12, #f1c40f);"></span>
-            <span class="btn-label">Rose Gold</span>
-          </button>
-          <button class="theme-btn cyan" data-theme="cyan" aria-label="Cyber Cyan Accent Theme">
-            <span class="color-dot" style="background: linear-gradient(135deg, #00d2ff, #00a8ff);"></span>
-            <span class="btn-label">Cyan Neon</span>
-          </button>
-          <button class="theme-btn emerald" data-theme="emerald" aria-label="Emerald Green Accent Theme">
-            <span class="color-dot" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"></span>
-            <span class="btn-label">Emerald</span>
-          </button>
-          <button class="theme-btn orange" data-theme="orange" aria-label="Sunset Orange Accent Theme">
-            <span class="color-dot" style="background: linear-gradient(135deg, #e67e22, #d35400);"></span>
-            <span class="btn-label">Sunset</span>
-          </button>
-        </div>
-      </div>
+      <aside class="controls-menu" id="controlsMenu" aria-label="Watch Configuration Controls">
+        <header class="dashboard-header compact">
+          <h1>AURA CHRONO</h1>
+        </header>
 
-      <!-- Panel Section: Weather Simulation -->
-      <div class="panel-section">
-        <h2>Simulate Weather</h2>
-        <div class="weather-selector-grid">
-          <button class="weather-btn active" data-weather="sunny" aria-label="Simulate Sunny Weather">
-            <span class="btn-icon">☀️</span> Sunny
-          </button>
-          <button class="weather-btn" data-weather="cloudy" aria-label="Simulate Cloudy Weather">
-            <span class="btn-icon">☁️</span> Cloudy
-          </button>
-          <button class="weather-btn" data-weather="rainy" aria-label="Simulate Rainy Weather">
-            <span class="btn-icon">🌧️</span> Rainy
-          </button>
-          <button class="weather-btn" data-weather="stormy" aria-label="Simulate Stormy Weather">
-            <span class="btn-icon">⛈️</span> Stormy
-          </button>
-          <button class="weather-btn" data-weather="snowy" aria-label="Simulate Snowy Weather">
-            <span class="btn-icon">❄️</span> Snowy
-          </button>
-        </div>
-      </div>
-
-      <!-- Panel Section: Interactive Controls -->
-      <div class="panel-section">
-        <h2>Interactive Controls</h2>
-        
-        <div class="control-row">
-          <div class="control-info">
-            <span class="control-title">Lume Mode</span>
-            <span class="control-description">Low-light photoluminescent dial glow</span>
+        <!-- Panel Section: Theme Accent Colors -->
+        <div class="panel-section">
+          <h2>Accent Theme</h2>
+          <div class="theme-selector-grid">
+            <button class="theme-btn gold active" data-theme="gold" aria-label="Gold Accent Theme">
+              <span class="color-dot" style="background: linear-gradient(135deg, #f39c12, #f1c40f);"></span>
+              <span class="btn-label">Rose Gold</span>
+            </button>
+            <button class="theme-btn cyan" data-theme="cyan" aria-label="Cyber Cyan Accent Theme">
+              <span class="color-dot" style="background: linear-gradient(135deg, #00d2ff, #00a8ff);"></span>
+              <span class="btn-label">Cyan Neon</span>
+            </button>
+            <button class="theme-btn emerald" data-theme="emerald" aria-label="Emerald Green Accent Theme">
+              <span class="color-dot" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"></span>
+              <span class="btn-label">Emerald</span>
+            </button>
+            <button class="theme-btn orange" data-theme="orange" aria-label="Sunset Orange Accent Theme">
+              <span class="color-dot" style="background: linear-gradient(135deg, #e67e22, #d35400);"></span>
+              <span class="btn-label">Sunset</span>
+            </button>
           </div>
-          <label class="switch" for="lumeToggle">
-            <input type="checkbox" id="lumeToggle">
-            <span class="slider"></span>
-          </label>
         </div>
 
-        <div class="control-row">
-          <div class="control-info">
-            <span class="control-title">Audio Tick-Tock</span>
-            <span class="control-description">High-fidelity simulated watch mechanical sound</span>
+        <!-- Panel Section: Interactive Controls -->
+        <div class="panel-section">
+          <h2>Interactive Controls</h2>
+
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-title">Lume Mode</span>
+              <span class="control-description">Low-light photoluminescent dial glow</span>
+            </div>
+            <label class="switch" for="lumeToggle">
+              <input type="checkbox" id="lumeToggle">
+              <span class="slider"></span>
+            </label>
           </div>
-          <label class="switch" for="soundToggle">
-            <input type="checkbox" id="soundToggle">
-            <span class="slider"></span>
-          </label>
+
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-title">Audio Tick-Tock</span>
+              <span class="control-description">High-fidelity simulated watch mechanical sound</span>
+            </div>
+            <label class="switch" for="soundToggle">
+              <input type="checkbox" id="soundToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+
         </div>
-
-      </div>
-
-      <!-- Footer Info -->
-      <footer class="dashboard-footer">
-        <p>Built with Vanilla HTML/CSS/JS</p>
-        <p>Sweeping second mechanism updates at 60 FPS.</p>
-      </footer>
-    </aside>
+      </aside>
+    </div>
   </main>
 
   <script src="index.js"></script>

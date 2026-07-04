@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const weatherIconContainer = document.getElementById('weatherIconContainer');
   let activeCelestialIcon = null;
+
+  const controlsDropdown = document.getElementById('controlsDropdown');
+  const controlsToggleBtn = document.getElementById('controlsToggleBtn');
   
   
   const lumeToggle = document.getElementById('lumeToggle');
@@ -184,6 +187,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function setControlsMenuOpen(isOpen) {
+    if (!controlsDropdown || !controlsToggleBtn) return;
+    controlsDropdown.classList.toggle('open', isOpen);
+    controlsToggleBtn.setAttribute('aria-expanded', String(isOpen));
+  }
+
   // --- Event Listeners & Theme Handlers ---
   
   // Theme Selectors
@@ -227,6 +236,25 @@ document.addEventListener('DOMContentLoaded', () => {
       stopTicking();
     }
   });
+
+  if (controlsToggleBtn && controlsDropdown) {
+    controlsToggleBtn.addEventListener('click', () => {
+      setControlsMenuOpen(!controlsDropdown.classList.contains('open'));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!controlsDropdown.classList.contains('open')) return;
+      if (!controlsDropdown.contains(e.target)) {
+        setControlsMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setControlsMenuOpen(false);
+      }
+    });
+  }
 
   // Bootstrapping the Watch face
   initTicks();
