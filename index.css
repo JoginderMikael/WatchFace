@@ -384,7 +384,7 @@ body {
   height: 85px; /* 100px total including tip */
   background: var(--text-main);
   margin-left: -5px;
-  border-radius: 0 0 2px 2px;
+  border-radius: 999px;
 }
 
 .hour-hand::before {
@@ -395,17 +395,8 @@ body {
   border-radius: 1px;
 }
 
-/* Sharp pointy tip for hour hand */
 .hour-hand::after {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 15px solid var(--text-main);
+  content: none;
 }
 
 /* Minute Hand */
@@ -414,7 +405,7 @@ body {
   height: 135px; /* 150px total including tip */
   background: var(--text-main);
   margin-left: -3px;
-  border-radius: 0 0 1.5px 1.5px;
+  border-radius: 999px;
 }
 
 .minute-hand::before {
@@ -425,17 +416,8 @@ body {
   border-radius: 1px;
 }
 
-/* Sharp pointy tip for minute hand */
 .minute-hand::after {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-bottom: 15px solid var(--text-main);
+  content: none;
 }
 
 /* Second Hand (Continuous Sweep) */
@@ -512,7 +494,7 @@ body {
 
 .lume-active .hour-hand::after,
 .lume-active .minute-hand::after {
-  border-bottom-color: var(--lume-glow-dim);
+  content: none;
 }
 
 .lume-active .num-12,
@@ -1033,26 +1015,22 @@ input:checked + .slider:before {
     width: 6px;
     height: 55px; /* 65px total including tip */
     margin-left: -3px;
+    border-radius: 999px;
   }
   
   .hour-hand::after {
-    top: -10px;
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 10px;
+    content: none;
   }
   
   .minute-hand {
     width: 4px;
     height: 85px; /* 95px total including tip */
     margin-left: -2px;
+    border-radius: 999px;
   }
   
   .minute-hand::after {
-    top: -10px;
-    border-left-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 10px;
+    content: none;
   }
   
   .second-hand {
