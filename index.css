@@ -790,6 +790,24 @@ body.face-mode-digital .fullscreen-digital-face {
   color: var(--accent);
 }
 
+.mode-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mode-controls-digital {
+  display: none;
+}
+
+body.face-mode-digital .mode-controls-mechanical {
+  display: none;
+}
+
+body.face-mode-digital .mode-controls-digital {
+  display: flex;
+}
+
 /* Switch styling */
 .switch {
   position: relative;

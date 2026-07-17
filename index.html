@@ -129,26 +129,41 @@
             </label>
           </div>
 
-          <div class="control-row">
-            <div class="control-info">
-              <span class="control-title">Lume Mode</span>
-              <span class="control-description">Low-light photoluminescent dial glow</span>
+          <div class="mode-controls mode-controls-mechanical" id="mechanicalControls">
+            <div class="control-row">
+              <div class="control-info">
+                <span class="control-title">Lume Mode</span>
+                <span class="control-description">Low-light photoluminescent dial glow</span>
+              </div>
+              <label class="switch" for="lumeToggle">
+                <input type="checkbox" id="lumeToggle" aria-label="Toggle lume mode">
+                <span class="slider"></span>
+              </label>
             </div>
-            <label class="switch" for="lumeToggle">
-              <input type="checkbox" id="lumeToggle">
-              <span class="slider"></span>
-            </label>
+
+            <div class="control-row">
+              <div class="control-info">
+                <span class="control-title">Audio Tick-Tock</span>
+                <span class="control-description">High-fidelity simulated watch mechanical sound</span>
+              </div>
+              <label class="switch" for="soundToggle">
+                <input type="checkbox" id="soundToggle" aria-label="Toggle audio tick-tock">
+                <span class="slider"></span>
+              </label>
+            </div>
           </div>
 
-          <div class="control-row">
-            <div class="control-info">
-              <span class="control-title">Audio Tick-Tock</span>
-              <span class="control-description">High-fidelity simulated watch mechanical sound</span>
+          <div class="mode-controls mode-controls-digital" id="digitalControls">
+            <div class="control-row">
+              <div class="control-info">
+                <span class="control-title">24-Hour Time</span>
+                <span class="control-description">Switch between 24hr and 12hr clock format</span>
+              </div>
+              <label class="switch" for="hourFormatToggle">
+                <input type="checkbox" id="hourFormatToggle" aria-label="Toggle 24-hour digital time format">
+                <span class="slider"></span>
+              </label>
             </div>
-            <label class="switch" for="soundToggle">
-              <input type="checkbox" id="soundToggle">
-              <span class="slider"></span>
-            </label>
           </div>
 
         </div>

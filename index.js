@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const faceModeToggle = document.getElementById('faceModeToggle');
   const controlsFaceTitle = document.getElementById('controlsFaceTitle');
+  const hourFormatToggle = document.getElementById('hourFormatToggle');
   const mainDigitalTime = document.getElementById('mainDigitalTime');
   const mainDigitalFooter = document.getElementById('mainDigitalFooter');
   
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let tickingIntervalId = null;
   const TICK_RATE_HZ = 4; // 4 ticks per second (automatic watch sweep beat)
   const TICK_INTERVAL = 1 / TICK_RATE_HZ;
+  let use24HourFormat = false;
 
   // Initialize Watch Dial Ticks (60 ticks: 12 large hour ticks, 48 small minute ticks)
   function initTicks() {
@@ -98,13 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
     
     // 2. Digital Display Update
-    const digitalHr = String(now.getHours() % 12 || 12).padStart(2, '0');
+    const hour24 = now.getHours();
+    const digitalHr = String(use24HourFormat ? hour24 : (hour24 % 12 || 12)).padStart(2, '0');
     const digitalMin = String(now.getMinutes()).padStart(2, '0');
     const digitalSec = String(now.getSeconds()).padStart(2, '0');
-    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const ampm = hour24 >= 12 ? 'PM' : 'AM';
     
     digitalTime.textContent = `${digitalHr}:${digitalMin}:${digitalSec}`;
-    digitalAmPm.textContent = ampm;
+    digitalAmPm.textContent = use24HourFormat ? '' : ampm;
     
     // Digital Calendar (format: TUE, JUN 30)
     const options = { weekday: 'short', month: 'short', day: '2-digit' };
@@ -229,8 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
       targetBtn.classList.add('active');
       
-      // Switch body theme classes
-      document.body.className = `theme-${theme}`;
+      // Switch theme class while preserving current mode/state classes
+      document.body.classList.remove('theme-gold', 'theme-cyan', 'theme-emerald', 'theme-orange');
+      document.body.classList.add(`theme-${theme}`);
       
       // Toggle Lume active class styling mapping if checked
       if (lumeToggle.checked) {
@@ -260,6 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
       stopTicking();
     }
   });
+
+  if (hourFormatToggle) {
+    hourFormatToggle.addEventListener('change', (e) => {
+      use24HourFormat = e.target.checked;
+    });
+
+    use24HourFormat = hourFormatToggle.checked;
+  }
 
   if (faceModeToggle) {
     faceModeToggle.addEventListener('change', (e) => {
