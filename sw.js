@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mechanical-face-v1';
+const CACHE_NAME = 'mechanical-face-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -11,7 +11,7 @@ const ASSETS = [
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
+      return cache.addAll(ASSETS).then(() => self.skipWaiting());
     })
   );
 });
@@ -26,16 +26,34 @@ self.addEventListener('activate', (e) => {
             return caches.delete(key);
           }
         })
-      );
+      ).then(() => self.clients.claim());
     })
   );
 });
 
-// Fetch Event - network first / cache fallback
+// Fetch Event - network first (with cache fallback)
 self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') {
+    return;
+  }
+
+  const requestURL = new URL(e.request.url);
+  if (requestURL.origin !== self.location.origin) {
+    return;
+  }
+
   e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request);
-    })
+    fetch(e.request)
+      .then((networkResponse) => {
+        const responseClone = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(e.request, responseClone);
+        });
+        return networkResponse;
+      })
+      .catch(() => {
+        return caches.match(e.request);
+      })
+    
   );
 });
