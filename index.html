@@ -69,17 +69,26 @@
             <!-- Dial Center Pivot Hub -->
             <div class="center-hub"></div>
             <div class="center-hub-pin"></div>
+
           </div>
+        </div>
+      </div>
+
+      <!-- Full Screen Digital Face (outside watch circle) -->
+      <div class="fullscreen-digital-face" id="fullscreenDigitalFace" aria-label="Full Screen Digital Clock Face">
+        <div class="main-digital-inner">
+          <div class="main-digital-time" id="mainDigitalTime">19:53:06</div>
+          <div class="main-digital-footer" id="mainDigitalFooter">FRI, JUN 17</div>
         </div>
       </div>
     </section>
 
     <div class="controls-dropdown" id="controlsDropdown">
-      <button class="controls-toggle-btn" id="controlsToggleBtn" type="button" aria-expanded="false" aria-controls="controlsMenu" aria-label="Open watch controls">⚙ Controls</button>
+      <button class="controls-toggle-btn" id="controlsToggleBtn" type="button" aria-expanded="false" aria-controls="controlsMenu" aria-label="Open watch controls">⚙</button>
 
       <aside class="controls-menu" id="controlsMenu" aria-label="Watch Configuration Controls">
         <header class="dashboard-header compact">
-          <h1>MECHANICAL FACE</h1>
+          <h1 id="controlsFaceTitle">MECHANICAL FACE</h1>
         </header>
 
         <!-- Panel Section: Theme Accent Colors -->
@@ -108,6 +117,17 @@
         <!-- Panel Section: Interactive Controls -->
         <div class="panel-section">
           <h2>Interactive Controls</h2>
+
+          <div class="control-row">
+            <div class="control-info">
+              <span class="control-title">Face Mode</span>
+              <span class="control-description">Toggle between Clock Face and Digital Face</span>
+            </div>
+            <label class="switch" for="faceModeToggle">
+              <input type="checkbox" id="faceModeToggle" aria-label="Switch between clock face and digital face">
+              <span class="slider"></span>
+            </label>
+          </div>
 
           <div class="control-row">
             <div class="control-info">

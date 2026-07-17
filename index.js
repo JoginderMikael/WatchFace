@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const digitalDate = document.getElementById('digitalDate');
   const digitalTime = document.getElementById('digitalTime');
   const digitalAmPm = document.getElementById('digitalAmPm');
+
+  const faceModeToggle = document.getElementById('faceModeToggle');
+  const controlsFaceTitle = document.getElementById('controlsFaceTitle');
+  const mainDigitalTime = document.getElementById('mainDigitalTime');
+  const mainDigitalFooter = document.getElementById('mainDigitalFooter');
   
   const weatherIconContainer = document.getElementById('weatherIconContainer');
   let activeCelestialIcon = null;
@@ -106,6 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateString = now.toLocaleDateString('en-US', options).toUpperCase();
     // Replace commas if any formatting discrepancies exist, to keep it clean
     digitalDate.textContent = dateString.replace(/,/g, '');
+
+    // Fullscreen Digital Face Display
+    if (mainDigitalTime && mainDigitalFooter) {
+      const weekdayShort = now.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+      const monthDay = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).toUpperCase().replace(/,/g, '');
+
+      mainDigitalTime.textContent = `${digitalHr}:${digitalMin}:${digitalSec}`;
+      mainDigitalFooter.textContent = `${weekdayShort}, ${monthDay}`;
+    }
     
     // Loop
     requestAnimationFrame(updateClock);
@@ -193,6 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
     controlsToggleBtn.setAttribute('aria-expanded', String(isOpen));
   }
 
+  function setFaceMode(isDigitalMode) {
+    if (isDigitalMode) {
+      document.body.classList.add('face-mode-digital');
+      if (controlsFaceTitle) controlsFaceTitle.textContent = 'DIGITAL CLOCK';
+    } else {
+      document.body.classList.remove('face-mode-digital');
+      if (controlsFaceTitle) controlsFaceTitle.textContent = 'MECHANICAL FACE';
+    }
+  }
+
   // --- Event Listeners & Theme Handlers ---
   
   // Theme Selectors
@@ -236,6 +260,14 @@ document.addEventListener('DOMContentLoaded', () => {
       stopTicking();
     }
   });
+
+  if (faceModeToggle) {
+    faceModeToggle.addEventListener('change', (e) => {
+      setFaceMode(e.target.checked);
+    });
+
+    setFaceMode(faceModeToggle.checked);
+  }
 
   if (controlsToggleBtn && controlsDropdown) {
     controlsToggleBtn.addEventListener('click', () => {
