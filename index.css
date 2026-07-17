@@ -1,8 +1,8 @@
 /* Define Accent Theme Variables and Core Variables */
 :root {
-  --font-display: 'Outfit', sans-serif;
-  --font-tech: 'Orbitron', sans-serif;
-  --font-digital: 'Share Tech Mono', monospace;
+  --font-display: 'Century Gothic', 'AppleGothic', sans-serif;
+  --font-tech: 'Century Gothic', 'AppleGothic', sans-serif;
+  --font-digital: 'Century Gothic', 'AppleGothic', sans-serif;
   --watch-size: min(86vmin, 560px);
 
   /* Neutral Dark Theme colors */
