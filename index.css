@@ -3,7 +3,7 @@
   --font-display: 'Century Gothic', 'AppleGothic', sans-serif;
   --font-tech: 'Century Gothic', 'AppleGothic', sans-serif;
   --font-digital: 'Century Gothic', 'AppleGothic', sans-serif;
-  --font-digital-face: 'Consolas', 'Courier New', monospace;
+  --font-digital-face: 'Century Gothic', 'AppleGothic', sans-serif;
   --watch-size: min(86vmin, 560px);
 
   /* Neutral Dark Theme colors */
@@ -216,10 +216,12 @@ body {
 .main-digital-time {
   font-family: var(--font-digital-face);
   font-size: clamp(64px, 19vw, 260px);
+  font-weight: 500;
   color: var(--text-main);
   letter-spacing: clamp(1px, 0.7vw, 10px);
   line-height: 0.95;
   text-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+  font-variant-numeric: tabular-nums;
 }
 
 .main-digital-footer {
@@ -228,7 +230,8 @@ body {
   right: 0;
   bottom: clamp(16px, 4.2vh, 42px);
   text-align: center;
-  font-family: var(--font-tech);
+  font-family: var(--font-digital);
+  font-weight: 500;
   color: var(--accent);
   font-size: clamp(14px, 2.2vw, 26px);
   letter-spacing: clamp(1px, 0.35vw, 4px);
@@ -397,7 +400,8 @@ body.face-mode-digital .fullscreen-digital-face {
 }
 
 .digital-date {
-  font-family: var(--font-tech);
+  font-family: var(--font-digital);
+  font-weight: 500;
   font-size: 9px;
   letter-spacing: 1px;
   color: var(--accent);
@@ -407,12 +411,15 @@ body.face-mode-digital .fullscreen-digital-face {
 .digital-time {
   font-family: var(--font-digital);
   font-size: 18px;
+  font-weight: 500;
   color: var(--text-main);
   letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
 }
 
 .digital-ampm {
-  font-family: var(--font-tech);
+  font-family: var(--font-digital);
+  font-weight: 500;
   font-size: 7px;
   color: var(--text-muted);
   position: absolute;
