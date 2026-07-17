@@ -1,11 +1,11 @@
 {
-  "name": "Aura Chrono Watch Face",
-  "short_name": "Aura Chrono",
+  "name": "Mechanical Face Watch Face",
+  "short_name": "Mechanical Face",
   "description": "Premium luxury hybrid smartwatch face with continuous sweep mechanics.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#08090c",
-  "theme_color": "#f5b041",
+  "theme_color": "#00f0ff",
   "orientation": "any",
   "icons": [
     {

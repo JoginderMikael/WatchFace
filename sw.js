@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aura-chrono-v3';
+const CACHE_NAME = 'mechanical-face-v1';
 const ASSETS = [
   './',
   './index.html',
