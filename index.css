@@ -56,6 +56,7 @@ body.theme-orange {
   margin: 0;
   padding: 0;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 body {
@@ -79,6 +80,7 @@ body {
   margin: 0;
   background: transparent;
   border: none;
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
   overflow: hidden;
@@ -334,6 +336,7 @@ body.face-mode-digital .fullscreen-digital-face {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: var(--bg-glass-subdial);
+  -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   z-index: 1;
 }
@@ -593,6 +596,7 @@ body.face-mode-digital .fullscreen-digital-face {
   place-items: center;
   padding: 0;
   cursor: pointer;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
