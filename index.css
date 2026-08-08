@@ -900,12 +900,6 @@ input:checked + .slider:before {
   height: 100%;
 }
 
-.sun-element {
-  fill: #f39c12;
-  transform-origin: center;
-  animation: spin 16s linear infinite;
-}
-
 .sun-core {
   fill: #f4b942;
   filter: drop-shadow(0 0 8px rgba(244, 185, 66, 0.45));
@@ -913,7 +907,6 @@ input:checked + .slider:before {
 
 .sun-rays {
   stroke: #f4b942;
-  animation: spin 18s linear infinite;
 }
 
 .moon-shell {
