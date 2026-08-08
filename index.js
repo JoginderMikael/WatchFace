@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     digitalTime.textContent = `${digitalHr}:${digitalMin}:${digitalSec}`;
     digitalAmPm.textContent = use24HourFormat ? '' : ampm;
+    document.title = digitalMin;
     
     // Digital Calendar (format: TUE, JUN 30)
     const options = { weekday: 'short', month: 'short', day: '2-digit' };
