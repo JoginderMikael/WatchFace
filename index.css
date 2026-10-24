@@ -250,6 +250,89 @@ body.face-mode-digital .fullscreen-digital-face {
   display: flex;
 }
 
+/* Reference inspired digital panel. These rules apply only in digital mode. */
+body.face-mode-digital .fullscreen-digital-face {
+  background: radial-gradient(ellipse at 50% 48%, #061c3b 0%, #020814 72%, #01040a 100%);
+}
+
+body.face-mode-digital .main-digital-inner {
+  padding: clamp(16px, 5vw, 72px);
+}
+
+.digital-panel {
+  width: min(100%, 1160px);
+  aspect-ratio: 1.86 / 1;
+  max-height: 82vh;
+  display: grid;
+  grid-template-columns: 22% 1fr;
+  padding: clamp(18px, 3.1vw, 42px);
+  border: clamp(4px, 0.8vw, 10px) solid #aebdca;
+  border-radius: clamp(28px, 6vw, 76px);
+  background: linear-gradient(145deg, #061a36, #020b1b 60%, #061b37);
+  box-shadow: 0 0 0 4px rgba(255,255,255,.12), 0 20px 70px rgba(0,0,0,.65), inset 0 0 32px rgba(0,120,255,.15);
+  overflow: hidden;
+}
+
+.digital-weekdays {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2% 0 1%;
+  color: #f5fbff;
+  font-size: clamp(12px, 3.1vw, 38px);
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-shadow: 0 0 12px rgba(190,230,255,.55);
+}
+
+.digital-weekdays .today { color: #00d9ff; }
+
+.digital-panel-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main-digital-time {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #00dfff;
+  font-family: 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  font-size: clamp(48px, 25vw, 300px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: 0 0 12px rgba(0,205,255,.8), 0 0 34px rgba(0,140,255,.55);
+}
+
+.main-digital-time .seg-digit { width: 19%; height: 100%; overflow: visible; }
+.main-digital-time .seg-colon { width: 6%; height: 72%; overflow: visible; }
+.main-digital-time .segment { fill: currentColor; }
+.main-digital-time .segment.off { opacity: .045; }
+
+.digital-panel-bottom {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2% 0 0;
+  color: #00dfff;
+  text-shadow: 0 0 12px rgba(0,205,255,.75), 0 0 28px rgba(0,140,255,.45);
+}
+
+.panel-temperature, .panel-date { display: flex; align-items: center; gap: .12em; }
+.panel-temperature { font-family: 'Arial Narrow', sans-serif; font-size: clamp(38px, 12vw, 150px); line-height: 1; }
+.panel-temperature small, .panel-date small { align-self: flex-start; padding-top: .1em; font-size: .22em; font-weight: 800; color: #f4fbff; text-shadow: 0 0 9px rgba(255,255,255,.5); }
+.panel-date { font-family: 'Arial Narrow', sans-serif; font-size: clamp(38px, 12vw, 150px); line-height: 1; }
+.panel-date small { margin-right: .08em; }
+
+.main-digital-footer { display: none; }
+
 /* Hour and Minute Ticks */
 .ticks-container {
   position: absolute;

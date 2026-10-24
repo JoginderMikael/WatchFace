@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hourFormatToggle = document.getElementById('hourFormatToggle');
   const mainDigitalTime = document.getElementById('mainDigitalTime');
   const mainDigitalFooter = document.getElementById('mainDigitalFooter');
+  const digitalWeekdays = document.getElementById('digitalWeekdays');
   
   const weatherIconContainer = document.getElementById('weatherIconContainer');
   let activeCelestialIcon = null;
@@ -56,6 +57,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const TICK_RATE_HZ = 4; // 4 ticks per second (automatic watch sweep beat)
   const TICK_INTERVAL = 1 / TICK_RATE_HZ;
   let use24HourFormat = false;
+
+  const segmentPolygons = {
+    a: '12,8 88,8 78,20 22,20', b: '82,24 92,14 92,78 82,88 74,78',
+    c: '82,98 92,88 92,152 82,162 74,152', d: '12,164 22,152 78,152 88,164 78,176 22,176',
+    e: '8,98 18,88 26,98 26,152 18,162 8,152', f: '8,24 18,14 26,24 26,78 18,88 8,78',
+    g: '22,84 78,84 88,92 78,100 22,100 12,92'
+  };
+  const segmentDigits = { '0':'abcdef','1':'bc','2':'abged','3':'abgcd','4':'fgbc','5':'afgcd','6':'afgecd','7':'abc','8':'abcdefg','9':'abfgcd' };
+
+  function renderSegmentTime(value) {
+    if (!mainDigitalTime) return;
+    mainDigitalTime.replaceChildren();
+    for (const char of value) {
+      if (char === ':') {
+        const colon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        colon.setAttribute('viewBox', '0 0 40 180');
+        colon.classList.add('seg-colon');
+        colon.innerHTML = '<circle class="segment" cx="20" cy="62" r="13"/><circle class="segment" cx="20" cy="118" r="13"/>';
+        mainDigitalTime.appendChild(colon);
+        continue;
+      }
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 100 184');
+      svg.classList.add('seg-digit');
+      const active = segmentDigits[char] || '';
+      for (const [name, points] of Object.entries(segmentPolygons)) {
+        const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        polygon.setAttribute('points', points);
+        polygon.classList.add('segment');
+        if (!active.includes(name)) polygon.classList.add('off');
+        svg.appendChild(polygon);
+      }
+      mainDigitalTime.appendChild(svg);
+    }
+  }
 
   // Initialize Watch Dial Ticks (60 ticks: 12 large hour ticks, 48 small minute ticks)
   function initTicks() {
@@ -121,8 +157,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const weekdayShort = now.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
       const monthDay = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).toUpperCase().replace(/,/g, '');
 
-      mainDigitalTime.textContent = `${digitalHr}:${digitalMin}:${digitalSec}`;
-      mainDigitalFooter.textContent = `${weekdayShort}, ${monthDay}`;
+      renderSegmentTime(`${digitalHr}:${digitalMin}`);
+      const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      digitalWeekdays.replaceChildren(...weekdays.map((day, index) => {
+        const label = document.createElement('span');
+        label.textContent = day;
+        if (index === now.getDay()) label.classList.add('today');
+        return label;
+      }));
+      const month = String(now.getMonth() + 1);
+      const dayNumber = String(now.getDate()).padStart(2, '0');
+      mainDigitalFooter.innerHTML = `<span>${month}</span><small>M</small><span>${dayNumber}</span><small>D</small>`;
     }
     
     // Loop

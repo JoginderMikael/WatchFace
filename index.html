@@ -78,8 +78,16 @@
       <!-- Full Screen Digital Face (outside watch circle) -->
       <div class="fullscreen-digital-face" id="fullscreenDigitalFace" aria-label="Full Screen Digital Clock Face">
         <div class="main-digital-inner">
-          <div class="main-digital-time" id="mainDigitalTime">19:53:06</div>
-          <div class="main-digital-footer" id="mainDigitalFooter">FRI, JUN 17</div>
+          <div class="digital-panel">
+            <div class="digital-weekdays" id="digitalWeekdays" aria-label="Days of the week"></div>
+            <div class="digital-panel-content">
+              <div class="main-digital-time" id="mainDigitalTime">19:53</div>
+              <div class="digital-panel-bottom">
+                <div class="panel-temperature"><span id="panelTemperature">27</span><small>°C</small></div>
+                <div class="panel-date" id="mainDigitalFooter"><span>9</span><small>M</small><span>26</span><small>D</small></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
