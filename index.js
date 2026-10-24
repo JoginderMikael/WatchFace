@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainDigitalTime = document.getElementById('mainDigitalTime');
   const mainDigitalFooter = document.getElementById('mainDigitalFooter');
   const digitalWeekdays = document.getElementById('digitalWeekdays');
+  const panelTemperature = document.getElementById('panelTemperature');
+  const panelTemperatureGroup = document.getElementById('panelTemperatureGroup');
   
   const weatherIconContainer = document.getElementById('weatherIconContainer');
   let activeCelestialIcon = null;
@@ -57,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const TICK_RATE_HZ = 4; // 4 ticks per second (automatic watch sweep beat)
   const TICK_INTERVAL = 1 / TICK_RATE_HZ;
   let use24HourFormat = false;
+  let weatherRefreshId = null;
+  let weatherRequestId = 0;
 
   const segmentPolygons = {
     a: '12,8 88,8 78,20 22,20', b: '82,24 92,14 92,78 82,88 74,78',
@@ -256,13 +260,58 @@ document.addEventListener('DOMContentLoaded', () => {
     controlsToggleBtn.setAttribute('aria-expanded', String(isOpen));
   }
 
+  function getPosition() {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('Location is not available in this browser.'));
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        ({ coords }) => resolve({ latitude: coords.latitude, longitude: coords.longitude }),
+        () => reject(new Error('Allow location access to show local weather.')),
+        { enableHighAccuracy: false, maximumAge: 15 * 60 * 1000, timeout: 12000 }
+      );
+    });
+  }
+
+  async function refreshPanelTemperature() {
+    if (!panelTemperature || !panelTemperatureGroup) return;
+    const requestId = ++weatherRequestId;
+    panelTemperatureGroup.title = 'Getting your local temperature…';
+    try {
+      const { latitude, longitude } = await getPosition();
+      const params = new URLSearchParams({
+        latitude: String(latitude), longitude: String(longitude),
+        current: 'temperature_2m', temperature_unit: 'celsius', timezone: 'auto'
+      });
+      const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
+      if (!response.ok) throw new Error('Weather service is unavailable.');
+      const weather = await response.json();
+      const temperature = weather.current?.temperature_2m;
+      if (!Number.isFinite(temperature)) throw new Error('Temperature data is unavailable.');
+      if (requestId !== weatherRequestId) return;
+      panelTemperature.textContent = String(Math.round(temperature));
+      panelTemperatureGroup.title = `Current temperature near your location: ${temperature.toFixed(1)}°C. Weather data: Open-Meteo.`;
+    } catch (error) {
+      if (requestId !== weatherRequestId) return;
+      panelTemperature.textContent = '--';
+      panelTemperatureGroup.title = error.message || 'Unable to load local weather.';
+    }
+  }
+
   function setFaceMode(isDigitalMode) {
     if (isDigitalMode) {
       document.body.classList.add('face-mode-digital');
       if (controlsFaceTitle) controlsFaceTitle.textContent = 'DIGITAL CLOCK';
+      refreshPanelTemperature();
+      if (weatherRefreshId) clearInterval(weatherRefreshId);
+      weatherRefreshId = setInterval(refreshPanelTemperature, 15 * 60 * 1000);
     } else {
       document.body.classList.remove('face-mode-digital');
       if (controlsFaceTitle) controlsFaceTitle.textContent = 'MECHANICAL FACE';
+      weatherRequestId++;
+      if (weatherRefreshId) clearInterval(weatherRefreshId);
+      weatherRefreshId = null;
     }
   }
 

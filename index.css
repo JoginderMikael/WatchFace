@@ -260,6 +260,7 @@ body.face-mode-digital .main-digital-inner {
 }
 
 .digital-panel {
+  position: relative;
   width: min(100%, 1160px);
   aspect-ratio: 1.86 / 1;
   max-height: 82vh;
@@ -330,6 +331,16 @@ body.face-mode-digital .main-digital-inner {
 .panel-temperature small, .panel-date small { align-self: flex-start; padding-top: .1em; font-size: .22em; font-weight: 800; color: #f4fbff; text-shadow: 0 0 9px rgba(255,255,255,.5); }
 .panel-date { font-family: 'Arial Narrow', sans-serif; font-size: clamp(38px, 12vw, 150px); line-height: 1; }
 .panel-date small { margin-right: .08em; }
+.weather-attribution {
+  position: absolute;
+  right: 2.2%;
+  bottom: 1.2%;
+  color: rgba(225, 244, 255, .62);
+  font-family: var(--font-digital);
+  font-size: clamp(7px, .75vw, 10px);
+  letter-spacing: .04em;
+}
+.weather-attribution a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
 .main-digital-footer { display: none; }
 
