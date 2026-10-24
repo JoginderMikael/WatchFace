@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Digital-7';
+  src: url('./digital-7.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 /* Define Accent Theme Variables and Core Variables */
 :root {
   --font-display: 'Century Gothic', 'AppleGothic', sans-serif;
@@ -301,20 +309,17 @@ body.face-mode-digital .main-digital-inner {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   color: #10dcff;
-  font-family: 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  font-family: 'Digital-7', monospace;
   font-size: clamp(48px, 25vw, 300px);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: 0;
-  text-shadow: 0 0 8px rgba(0,205,255,.38);
+  letter-spacing: .025em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px rgba(0,205,255,.38), 0 0 24px rgba(0,140,255,.3);
 }
-
-.main-digital-time .seg-digit { width: 21.5%; height: 92%; flex: 0 0 auto; overflow: visible; }
-.main-digital-time .seg-colon { width: 4%; height: 64%; flex: 0 0 auto; overflow: visible; }
-.main-digital-time .segment { fill: currentColor; filter: drop-shadow(0 0 2px rgba(0, 205, 255, .8)); }
-.main-digital-time .segment.off { opacity: .025; filter: none; }
 
 .digital-panel-bottom {
   height: 30%;

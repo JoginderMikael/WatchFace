@@ -1,9 +1,10 @@
-const CACHE_NAME = 'mechanical-face-v2';
+const CACHE_NAME = 'mechanical-face-v3';
 const ASSETS = [
   './',
   './index.html',
   './index.css',
   './index.js',
+  './digital-7.ttf',
   './manifest.json'
 ];
 
