@@ -6,7 +6,7 @@ A premium luxury smartwatch face featuring continuous sweep mechanics, digital t
 
 - **Mechanical Sweep Movement**: Smooth continuous sweep second hand and animated mechanical components
 - **Hybrid Display**: Premium analog watch face with digital time and date readout
-- **Weather Integration**: Animated weather indicators with sun/moon sub-dial (moon 6pm–6am, sun otherwise)
+- **Weather Integration**: Local current temperature from [Open-Meteo](https://open-meteo.com/) plus sun/moon sub-dial (moon 6pm–6am, sun otherwise). The free API requires attribution and is intended for non-commercial use.
 - **Customizable Themes**: Multiple accent color themes for personalization
 - **Interactive Controls**: Compact dropdown menu for quick access to settings
 - **Responsive Design**: Fullscreen-optimized layout that adapts to any device
