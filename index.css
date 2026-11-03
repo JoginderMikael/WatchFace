@@ -1,23 +1,28 @@
 @font-face {
-  font-family: 'Digital-7';
-  src: url('./digital-7.ttf') format('truetype');
+  font-family: "Digital-7";
+  src: url("./digital-7.ttf") format("truetype");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-display: swap;
 }
 
 /* Define Accent Theme Variables and Core Variables */
 :root {
-  --font-display: 'Century Gothic', 'AppleGothic', sans-serif;
-  --font-tech: 'Century Gothic', 'AppleGothic', sans-serif;
-  --font-digital: 'Century Gothic', 'AppleGothic', sans-serif;
-  --font-digital-face: 'Century Gothic', 'AppleGothic', sans-serif;
+  --font-display: "Century Gothic", "AppleGothic", sans-serif;
+  --font-tech: "Century Gothic", "AppleGothic", sans-serif;
+  --font-digital: "Century Gothic", "AppleGothic", sans-serif;
+  --font-digital-face: "Century Gothic", "AppleGothic", sans-serif;
   --watch-size: min(86vmin, 560px);
 
   /* Neutral Dark Theme colors */
   --bg-app: #08090c;
   --bg-dashboard: rgba(13, 16, 23, 0.7);
-  --bg-watch-case: linear-gradient(135deg, #2d3238 0%, #15181b 50%, #0b0c0e 100%);
+  --bg-watch-case: linear-gradient(
+    135deg,
+    #2d3238 0%,
+    #15181b 50%,
+    #0b0c0e 100%
+  );
   --bg-dial: radial-gradient(circle at center, #1b2028 0%, #090b0e 100%);
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
@@ -34,28 +39,56 @@ body.theme-gold {
   --accent: #f5b041;
   --accent-glow: rgba(245, 176, 65, 0.4);
   --accent-gradient: linear-gradient(135deg, #f5b041, #f39c12);
-  --watch-bezel-accent: linear-gradient(135deg, #e5c07b 0%, #aa7c11 30%, #ffd700 50%, #b8860b 70%, #d4af37 100%);
+  --watch-bezel-accent: linear-gradient(
+    135deg,
+    #e5c07b 0%,
+    #aa7c11 30%,
+    #ffd700 50%,
+    #b8860b 70%,
+    #d4af37 100%
+  );
 }
 
 body.theme-cyan {
   --accent: #00f0ff;
   --accent-glow: rgba(0, 240, 255, 0.4);
   --accent-gradient: linear-gradient(135deg, #00f0ff, #00a8ff);
-  --watch-bezel-accent: linear-gradient(135deg, #5de0e6 0%, #008b8b 30%, #00ffff 50%, #008080 70%, #48d1cc 100%);
+  --watch-bezel-accent: linear-gradient(
+    135deg,
+    #5de0e6 0%,
+    #008b8b 30%,
+    #00ffff 50%,
+    #008080 70%,
+    #48d1cc 100%
+  );
 }
 
 body.theme-emerald {
   --accent: #2ecc71;
   --accent-glow: rgba(46, 204, 113, 0.4);
   --accent-gradient: linear-gradient(135deg, #2ecc71, #27ae60);
-  --watch-bezel-accent: linear-gradient(135deg, #a3e4d7 0%, #117864 30%, #2ecc71 50%, #196f3d 70%, #58d68d 100%);
+  --watch-bezel-accent: linear-gradient(
+    135deg,
+    #a3e4d7 0%,
+    #117864 30%,
+    #2ecc71 50%,
+    #196f3d 70%,
+    #58d68d 100%
+  );
 }
 
 body.theme-orange {
   --accent: #ff6b35;
   --accent-glow: rgba(255, 107, 53, 0.4);
   --accent-gradient: linear-gradient(135deg, #ff6b35, #d35400);
-  --watch-bezel-accent: linear-gradient(135deg, #edbb99 0%, #a04000 30%, #e67e22 50%, #78281f 70%, #dc7633 100%);
+  --watch-bezel-accent: linear-gradient(
+    135deg,
+    #edbb99 0%,
+    #a04000 30%,
+    #e67e22 50%,
+    #78281f 70%,
+    #dc7633 100%
+  );
 }
 
 /* Reset and Layout */
@@ -104,7 +137,11 @@ body {
   transform: translate(-50%, -50%);
   width: min(95vmin, 760px);
   height: min(95vmin, 760px);
-  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(
+    circle,
+    var(--accent-glow) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
   z-index: 1;
   pointer-events: none;
   transition: background 0.8s ease;
@@ -126,7 +163,11 @@ body {
   position: absolute;
   width: calc(var(--watch-size) + 30px);
   height: calc(var(--watch-size) + 30px);
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
   pointer-events: none;
   z-index: -1;
   filter: blur(10px);
@@ -138,7 +179,7 @@ body {
   border-radius: 50%;
   background: var(--bg-watch-case);
   padding: 10px; /* Space for physical bezel outer ring */
-  box-shadow: 
+  box-shadow:
     inset 0 4px 6px rgba(255, 255, 255, 0.15),
     inset 0 -4px 6px rgba(0, 0, 0, 0.6),
     0 15px 35px rgba(0, 0, 0, 0.9),
@@ -151,11 +192,19 @@ body {
 
 /* Outer physical watch detailing */
 .watch-case::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 50%;
-  background: linear-gradient(45deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.2) 50%, rgba(255,255,255,0.05) 100%);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   pointer-events: none;
 }
 
@@ -165,7 +214,7 @@ body {
   border-radius: 50%;
   background: var(--watch-bezel-accent);
   padding: 14px; /* Width of mechanical looking bezel */
-  box-shadow: 
+  box-shadow:
     inset 0 2px 3px rgba(255, 255, 255, 0.3),
     inset 0 -2px 3px rgba(0, 0, 0, 0.5),
     0 4px 8px rgba(0, 0, 0, 0.6);
@@ -179,9 +228,19 @@ body {
 /* Glass reflection layer */
 .watch-glass {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.02) 60%, rgba(255, 255, 255, 0.08) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(255, 255, 255, 0.02) 60%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
   z-index: 10;
   pointer-events: none;
   box-shadow: inset 0 10px 20px rgba(255, 255, 255, 0.1);
@@ -194,7 +253,7 @@ body {
   background: var(--bg-dial);
   position: relative;
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     inset 0 10px 25px rgba(0, 0, 0, 0.95),
     0 2px 4px rgba(255, 255, 255, 0.1);
   display: flex;
@@ -210,7 +269,11 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 8;
-  background: radial-gradient(circle at center, rgba(8, 11, 16, 0.96) 0%, rgba(2, 3, 6, 0.99) 100%);
+  background: radial-gradient(
+    circle at center,
+    rgba(8, 11, 16, 0.96) 0%,
+    rgba(2, 3, 6, 0.99) 100%
+  );
 }
 
 .main-digital-inner {
@@ -260,7 +323,12 @@ body.face-mode-digital .fullscreen-digital-face {
 
 /* Reference inspired digital panel. These rules apply only in digital mode. */
 body.face-mode-digital .fullscreen-digital-face {
-  background: radial-gradient(ellipse at 50% 48%, #061c3b 0%, #020814 72%, #01040a 100%);
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    #061c3b 0%,
+    #020814 72%,
+    #01040a 100%
+  );
 }
 
 body.face-mode-digital .main-digital-inner {
@@ -278,7 +346,10 @@ body.face-mode-digital .main-digital-inner {
   border: clamp(4px, 0.8vw, 10px) solid #aebdca;
   border-radius: clamp(28px, 6vw, 76px);
   background: linear-gradient(145deg, #061a36, #020b1b 60%, #061b37);
-  box-shadow: 0 0 0 4px rgba(255,255,255,.12), 0 20px 70px rgba(0,0,0,.65), inset 0 0 32px rgba(0,120,255,.15);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.12),
+    0 20px 70px rgba(0, 0, 0, 0.65),
+    inset 0 0 32px rgba(0, 120, 255, 0.15);
   overflow: hidden;
 }
 
@@ -291,11 +362,13 @@ body.face-mode-digital .main-digital-inner {
   color: #f5fbff;
   font-size: clamp(12px, 3.1vw, 38px);
   font-weight: 800;
-  letter-spacing: .1em;
-  text-shadow: 0 0 12px rgba(190,230,255,.55);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 12px rgba(190, 230, 255, 0.55);
 }
 
-.digital-weekdays .today { color: #00d9ff; }
+.digital-weekdays .today {
+  color: #00d9ff;
+}
 
 .digital-panel-content {
   min-width: 0;
@@ -311,14 +384,16 @@ body.face-mode-digital .main-digital-inner {
   align-items: center;
   justify-content: center;
   color: #10dcff;
-  font-family: 'Digital-7', monospace;
+  font-family: "Digital-7", monospace;
   font-size: clamp(48px, 25vw, 300px);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
   text-align: center;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 8px rgba(0,205,255,.38), 0 0 24px rgba(0,140,255,.3);
+  text-shadow:
+    0 0 8px rgba(0, 205, 255, 0.38),
+    0 0 24px rgba(0, 140, 255, 0.3);
 }
 
 .digital-panel-bottom {
@@ -328,15 +403,42 @@ body.face-mode-digital .main-digital-inner {
   justify-content: space-between;
   padding: 0 2% 0 0;
   color: #00dfff;
-  text-shadow: 0 0 12px rgba(0,205,255,.75), 0 0 28px rgba(0,140,255,.45);
+  text-shadow:
+    0 0 12px rgba(0, 205, 255, 0.75),
+    0 0 28px rgba(0, 140, 255, 0.45);
 }
 
-.panel-temperature, .panel-date { display: flex; align-items: center; gap: .12em; }
-.panel-temperature { font-family: 'Arial Narrow', sans-serif; font-size: clamp(38px, 12vw, 150px); line-height: 1; }
-.panel-temperature small, .panel-date small { align-self: flex-start; padding-top: .1em; font-size: .22em; font-weight: 800; color: #f4fbff; text-shadow: 0 0 9px rgba(255,255,255,.5); }
-.panel-date { font-family: 'Arial Narrow', sans-serif; font-size: clamp(38px, 12vw, 150px); line-height: 1; }
-.panel-date small { margin-right: .08em; }
-.main-digital-footer { display: none; }
+.panel-temperature,
+.panel-date {
+  display: flex;
+  align-items: center;
+  gap: 0.12em;
+}
+.panel-temperature {
+  font-family: "Arial Narrow", sans-serif;
+  font-size: clamp(38px, 12vw, 150px);
+  line-height: 1;
+}
+.panel-temperature small,
+.panel-date small {
+  align-self: flex-start;
+  padding-top: 0.1em;
+  font-size: 0.22em;
+  font-weight: 800;
+  color: #f4fbff;
+  text-shadow: 0 0 9px rgba(255, 255, 255, 0.5);
+}
+.panel-date {
+  font-family: "Arial Narrow", sans-serif;
+  font-size: clamp(38px, 12vw, 150px);
+  line-height: 1;
+}
+.panel-date small {
+  margin-right: 0.08em;
+}
+.main-digital-footer {
+  display: none;
+}
 
 /* Hour and Minute Ticks */
 .ticks-container {
@@ -397,21 +499,34 @@ body.face-mode-digital .main-digital-inner {
   font-size: 26px;
   font-weight: 800;
   color: var(--text-main);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   transform: translate(-50%, -50%);
 }
 
-.hour-numbers .num-12 { top: 38px; left: 50%; color: var(--accent); }
-.hour-numbers .num-3  { top: 50%; left: calc(100% - 38px); }
-.hour-numbers .num-6  { top: calc(100% - 38px); left: 50%; }
-.hour-numbers .num-9  { top: 50%; left: 38px; }
+.hour-numbers .num-12 {
+  top: 38px;
+  left: 50%;
+  color: var(--accent);
+}
+.hour-numbers .num-3 {
+  top: 50%;
+  left: calc(100% - 38px);
+}
+.hour-numbers .num-6 {
+  top: calc(100% - 38px);
+  left: 50%;
+}
+.hour-numbers .num-9 {
+  top: 50%;
+  left: 38px;
+}
 
 /* Sub-dials (Glassmorphic modules) */
 .sub-dial {
   position: absolute;
   border-radius: 50%;
   border: 1px solid var(--border-glass);
-  box-shadow: 
+  box-shadow:
     inset 0 4px 10px rgba(0, 0, 0, 0.4),
     0 4px 10px rgba(0, 0, 0, 0.3);
   display: flex;
@@ -422,7 +537,10 @@ body.face-mode-digital .main-digital-inner {
 
 .sub-dial-bg {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--bg-glass-subdial);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
@@ -449,7 +567,6 @@ body.face-mode-digital .main-digital-inner {
   z-index: 4;
 }
 
-
 /* Sub-dial 1: Weather Styling */
 .weather-content {
   position: relative;
@@ -460,22 +577,23 @@ body.face-mode-digital .main-digital-inner {
   text-align: center;
   width: 100%;
   height: 100%;
-}
-
-.weather-icon-wrapper {
-  width: 54px;
-  height: 54px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: var(--accent);
 }
 
 .weather-temp {
-  display: none;
+  font-family: var(--font-digital);
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 8px var(--accent-glow);
 }
 
-.weather-desc {
-  display: none;
+.weather-unit {
+  align-self: center;
+  margin-left: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
 /* Sub-dial 2: Digital Clock & Date Styling */
@@ -518,7 +636,6 @@ body.face-mode-digital .main-digital-inner {
   bottom: 8px;
 }
 
-
 /* --- Watch Hands (Analog Sweep) --- */
 .hand {
   position: absolute;
@@ -540,9 +657,12 @@ body.face-mode-digital .main-digital-inner {
 }
 
 .hour-hand::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 10px; left: 2px; right: 2px; bottom: 5px;
+  top: 10px;
+  left: 2px;
+  right: 2px;
+  bottom: 5px;
   background: rgba(255, 255, 255, 0.4);
   border-radius: 1px;
 }
@@ -561,9 +681,12 @@ body.face-mode-digital .main-digital-inner {
 }
 
 .minute-hand::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 15px; left: 1.5px; right: 1.5px; bottom: 5px;
+  top: 15px;
+  left: 1.5px;
+  right: 1.5px;
+  bottom: 5px;
   background: rgba(255, 255, 255, 0.45);
   border-radius: 1px;
 }
@@ -585,7 +708,7 @@ body.face-mode-digital .main-digital-inner {
 
 /* Counterweight circle at bottom of second hand */
 .second-hand::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -25px;
   left: 50%;
@@ -597,7 +720,7 @@ body.face-mode-digital .main-digital-inner {
 }
 
 .second-hand::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -20px;
   left: 50%;
@@ -606,7 +729,7 @@ body.face-mode-digital .main-digital-inner {
   height: 14px;
   background: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Center Pivot Hub styling */
@@ -615,9 +738,14 @@ body.face-mode-digital .main-digital-inner {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #555 0%, #1a1a1a 80%, #000 100%);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #555 0%,
+    #1a1a1a 80%,
+    #000 100%
+  );
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   z-index: 9;
 }
 
@@ -627,7 +755,7 @@ body.face-mode-digital .main-digital-inner {
   height: 8px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
   z-index: 10;
 }
 
@@ -709,7 +837,9 @@ body.face-mode-digital .main-digital-inner {
   opacity: 0;
   transform: translateY(-8px) scale(0.98);
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .controls-dropdown.open .controls-menu {
@@ -801,7 +931,7 @@ body.face-mode-digital .main-digital-inner {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Weather Simulation Grid */
@@ -924,10 +1054,13 @@ body.face-mode-digital .mode-controls-digital {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--border-glass);
-  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 24px;
 }
 
@@ -939,9 +1072,9 @@ body.face-mode-digital .mode-controls-digital {
   left: 3px;
   bottom: 3px;
   background-color: var(--text-main);
-  transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 input:checked + .slider {
@@ -974,7 +1107,7 @@ input:checked + .slider:before {
   border-radius: 50%;
   background: var(--accent);
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   transition: transform 0.1s ease;
 }
 
@@ -982,30 +1115,7 @@ input:checked + .slider:before {
   transform: scale(1.2);
 }
 
-/* --- Weather Icons SVGs Animations --- */
-.weather-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.sun-core {
-  fill: #f4b942;
-  filter: drop-shadow(0 0 8px rgba(244, 185, 66, 0.45));
-}
-
-.sun-rays {
-  stroke: #f4b942;
-}
-
-.moon-shell {
-  fill: #d5dcf2;
-  filter: drop-shadow(0 0 8px rgba(213, 220, 242, 0.45));
-}
-
-.moon-cut {
-  fill: #1a1f28;
-}
-
+/* --- Weather Animations --- */
 .cloud-element {
   fill: #d5dbdb;
   opacity: 0.95;
@@ -1056,36 +1166,75 @@ input:checked + .slider:before {
 
 /* Keyframe Animations */
 @keyframes spin {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px) translateX(0px); }
-  100% { transform: translateY(-3px) translateX(2px); }
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  100% {
+    transform: translateY(-3px) translateX(2px);
+  }
 }
 
 @keyframes float-back {
-  0% { transform: translateY(0px) translateX(0px); }
-  100% { transform: translateY(-2px) translateX(-2px); }
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  100% {
+    transform: translateY(-2px) translateX(-2px);
+  }
 }
 
 @keyframes fall {
-  0% { transform: translateY(-10px); opacity: 0; }
-  30% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(15px); opacity: 0; }
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(15px);
+    opacity: 0;
+  }
 }
 
 @keyframes snowfall {
-  0% { transform: translateY(-10px) translateX(0px); opacity: 0; }
-  30% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(15px) translateX(5px); opacity: 0; }
+  0% {
+    transform: translateY(-10px) translateX(0px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(15px) translateX(5px);
+    opacity: 0;
+  }
 }
 
 @keyframes flash {
-  0%, 90%, 94%, 98%, 100% { opacity: 0; }
-  92%, 96% { opacity: 1; }
+  0%,
+  90%,
+  94%,
+  98%,
+  100% {
+    opacity: 0;
+  }
+  92%,
+  96% {
+    opacity: 1;
+  }
 }
 
 /* Responsive Scaling for Dashboard and Watch */
@@ -1093,16 +1242,16 @@ input:checked + .slider:before {
   :root {
     --watch-size: min(90vmin, 520px);
   }
-  
+
   .watch-display-section {
     padding: 8px;
   }
-  
+
   .controls-dropdown {
     top: 10px;
     right: 10px;
   }
-  
+
   .bg-glow {
     left: 50%;
     width: min(90vmin, 520px);
@@ -1118,109 +1267,118 @@ input:checked + .slider:before {
   .watch-case {
     padding: 6px;
   }
-  
+
   .watch-bezel {
     padding: 8px;
   }
-  
+
   .tick {
     transform-origin: 0 calc((var(--watch-size) / 2) - 14px);
     height: 5px;
   }
-  
+
   .tick.hour {
     height: 10px;
     width: 3px;
   }
-  
+
   .hour-numbers .num {
     font-size: 18px;
   }
-  
-  .hour-numbers .num-12 { top: 22px; }
-  .hour-numbers .num-3  { right: 22px; left: auto; transform: translate(50%, -50%); }
-  .hour-numbers .num-6  { bottom: 22px; top: auto; }
-  .hour-numbers .num-9  { left: 22px; }
-  
+
+  .hour-numbers .num-12 {
+    top: 22px;
+  }
+  .hour-numbers .num-3 {
+    right: 22px;
+    left: auto;
+    transform: translate(50%, -50%);
+  }
+  .hour-numbers .num-6 {
+    bottom: 22px;
+    top: auto;
+  }
+  .hour-numbers .num-9 {
+    left: 22px;
+  }
+
   .sub-dial-weather {
     top: 55px;
     width: 70px;
     height: 70px;
   }
-  
-  .weather-icon-wrapper {
-    width: 32px;
-    height: 32px;
+
+  .weather-temp {
+    font-size: 20px;
   }
-  
-  .weather-desc {
-    display: none;
+
+  .weather-unit {
+    font-size: 8px;
   }
-  
+
   .sub-dial-digital {
     bottom: 50px;
     width: 100px;
     height: 55px;
   }
-  
+
   .digital-date {
     font-size: 7px;
   }
-  
+
   .digital-time {
     font-size: 13px;
   }
-  
+
   .digital-ampm {
     right: 8px;
     bottom: 4px;
     font-size: 5px;
   }
-  
-  
+
   .hour-hand {
     width: 6px;
     height: 55px; /* 65px total including tip */
     margin-left: -3px;
     border-radius: 999px;
   }
-  
+
   .hour-hand::after {
     content: none;
   }
-  
+
   .minute-hand {
     width: 4px;
     height: 85px; /* 95px total including tip */
     margin-left: -2px;
     border-radius: 999px;
   }
-  
+
   .minute-hand::after {
     content: none;
   }
-  
+
   .second-hand {
     width: 1.5px;
     height: 115px;
   }
-  
+
   .second-hand::before {
     bottom: -15px;
     height: 20px;
   }
-  
+
   .second-hand::after {
     bottom: -12px;
     width: 8px;
     height: 8px;
   }
-  
+
   .center-hub {
     width: 16px;
     height: 16px;
   }
-  
+
   .center-hub-pin {
     width: 6px;
     height: 6px;

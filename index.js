@@ -1,56 +1,32 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Elements
-  const ticksContainer = document.getElementById('ticksContainer');
-  const hourHand = document.getElementById('hourHand');
-  const minuteHand = document.getElementById('minuteHand');
-  const secondHand = document.getElementById('secondHand');
-  
-  const digitalDate = document.getElementById('digitalDate');
-  const digitalTime = document.getElementById('digitalTime');
-  const digitalAmPm = document.getElementById('digitalAmPm');
+  const ticksContainer = document.getElementById("ticksContainer");
+  const hourHand = document.getElementById("hourHand");
+  const minuteHand = document.getElementById("minuteHand");
+  const secondHand = document.getElementById("secondHand");
 
-  const faceModeToggle = document.getElementById('faceModeToggle');
-  const controlsFaceTitle = document.getElementById('controlsFaceTitle');
-  const hourFormatToggle = document.getElementById('hourFormatToggle');
-  const mainDigitalTime = document.getElementById('mainDigitalTime');
-  const mainDigitalFooter = document.getElementById('mainDigitalFooter');
-  const digitalWeekdays = document.getElementById('digitalWeekdays');
-  const panelTemperature = document.getElementById('panelTemperature');
-  const panelTemperatureGroup = document.getElementById('panelTemperatureGroup');
-  
-  const weatherIconContainer = document.getElementById('weatherIconContainer');
-  let activeCelestialIcon = null;
+  const digitalDate = document.getElementById("digitalDate");
+  const digitalTime = document.getElementById("digitalTime");
+  const digitalAmPm = document.getElementById("digitalAmPm");
 
-  const controlsDropdown = document.getElementById('controlsDropdown');
-  const controlsToggleBtn = document.getElementById('controlsToggleBtn');
-  
-  
-  const lumeToggle = document.getElementById('lumeToggle');
-  const soundToggle = document.getElementById('soundToggle');
-  
-  const celestialIcons = {
-    sun: `
-      <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Sun icon">
-        <circle class="sun-core" cx="50" cy="50" r="18" />
-        <g class="sun-rays" style="stroke-width: 4; stroke-linecap: round;">
-          <line x1="50" y1="10" x2="50" y2="22" />
-          <line x1="50" y1="78" x2="50" y2="90" />
-          <line x1="10" y1="50" x2="22" y2="50" />
-          <line x1="78" y1="50" x2="90" y2="50" />
-          <line x1="22" y1="22" x2="30" y2="30" />
-          <line x1="70" y1="70" x2="78" y2="78" />
-          <line x1="78" y1="22" x2="70" y2="30" />
-          <line x1="30" y1="70" x2="22" y2="78" />
-        </g>
-      </svg>
-    `,
-    moon: `
-      <svg class="weather-svg" viewBox="0 0 100 100" aria-label="Moon icon">
-        <circle class="moon-shell" cx="52" cy="50" r="24" />
-        <circle class="moon-cut" cx="64" cy="44" r="22" />
-      </svg>
-    `
-  };
+  const faceModeToggle = document.getElementById("faceModeToggle");
+  const controlsFaceTitle = document.getElementById("controlsFaceTitle");
+  const hourFormatToggle = document.getElementById("hourFormatToggle");
+  const mainDigitalTime = document.getElementById("mainDigitalTime");
+  const mainDigitalFooter = document.getElementById("mainDigitalFooter");
+  const digitalWeekdays = document.getElementById("digitalWeekdays");
+  const panelTemperature = document.getElementById("panelTemperature");
+  const panelTemperatureGroup = document.getElementById(
+    "panelTemperatureGroup",
+  );
+
+  const weatherTemperature = document.getElementById("weatherTemp");
+
+  const controlsDropdown = document.getElementById("controlsDropdown");
+  const controlsToggleBtn = document.getElementById("controlsToggleBtn");
+
+  const lumeToggle = document.getElementById("lumeToggle");
+  const soundToggle = document.getElementById("soundToggle");
 
   // Web Audio Variables for Ticking Sound
   let audioContext = null;
@@ -59,10 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const TICK_RATE_HZ = 4; // 4 ticks per second (automatic watch sweep beat)
   const TICK_INTERVAL = 1 / TICK_RATE_HZ;
   let use24HourFormat = false;
-  let weatherRefreshId = null;
   let weatherRequestId = 0;
 
-  let renderedDigitalTime = '';
+  let renderedDigitalTime = "";
   function renderDigitalTime(value) {
     if (!mainDigitalTime || renderedDigitalTime === value) return;
     mainDigitalTime.textContent = value;
@@ -72,20 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize Watch Dial Ticks (60 ticks: 12 large hour ticks, 48 small minute ticks)
   function initTicks() {
     for (let i = 0; i < 60; i++) {
-      const tick = document.createElement('div');
-      tick.classList.add('tick');
-      
+      const tick = document.createElement("div");
+      tick.classList.add("tick");
+
       // Determine if hour tick
       if (i % 5 === 0) {
-        tick.classList.add('hour');
+        tick.classList.add("hour");
         // Quarters get accent highlights
         if (i % 15 === 0) {
-          tick.classList.add('hour-accent');
+          tick.classList.add("hour-accent");
         }
       } else {
-        tick.classList.add('minute');
+        tick.classList.add("minute");
       }
-      
+
       // Position tick using CSS transform rotation
       tick.style.transform = `rotate(${i * 6}deg)`;
       ticksContainer.appendChild(tick);
@@ -95,110 +70,104 @@ document.addEventListener('DOMContentLoaded', () => {
   // Update Analog Clock Hands & Digital Clock
   function updateClock() {
     const now = new Date();
-    updateCelestialIcon(now);
-    
+
     // 1. Continuous Analog Hands Rotations (Sweeping second hand)
     const ms = now.getMilliseconds();
     const seconds = now.getSeconds() + ms / 1000;
     const minutes = now.getMinutes() + seconds / 60;
     const hours = (now.getHours() % 12) + minutes / 60;
-    
+
     const secondDegrees = seconds * 6; // 360 / 60 = 6 deg
     const minuteDegrees = minutes * 6; // 360 / 60 = 6 deg
-    const hourDegrees = hours * 30;    // 360 / 12 = 30 deg
-    
+    const hourDegrees = hours * 30; // 360 / 12 = 30 deg
+
     secondHand.style.transform = `rotate(${secondDegrees}deg)`;
     minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
     hourHand.style.transform = `rotate(${hourDegrees}deg)`;
-    
+
     // 2. Digital Display Update
     const hour24 = now.getHours();
-    const digitalHr = String(use24HourFormat ? hour24 : (hour24 % 12 || 12)).padStart(2, '0');
-    const digitalMin = String(now.getMinutes()).padStart(2, '0');
-    const digitalSec = String(now.getSeconds()).padStart(2, '0');
-    const ampm = hour24 >= 12 ? 'PM' : 'AM';
-    
+    const digitalHr = String(
+      use24HourFormat ? hour24 : hour24 % 12 || 12,
+    ).padStart(2, "0");
+    const digitalMin = String(now.getMinutes()).padStart(2, "0");
+    const digitalSec = String(now.getSeconds()).padStart(2, "0");
+    const ampm = hour24 >= 12 ? "PM" : "AM";
+
     digitalTime.textContent = `${digitalHr}:${digitalMin}:${digitalSec}`;
-    digitalAmPm.textContent = use24HourFormat ? '' : ampm;
+    digitalAmPm.textContent = use24HourFormat ? "" : ampm;
     document.title = digitalMin;
-    
+
     // Digital Calendar (format: TUE, JUN 30)
-    const options = { weekday: 'short', month: 'short', day: '2-digit' };
-    const dateString = now.toLocaleDateString('en-US', options).toUpperCase();
+    const options = { weekday: "short", month: "short", day: "2-digit" };
+    const dateString = now.toLocaleDateString("en-US", options).toUpperCase();
     // Replace commas if any formatting discrepancies exist, to keep it clean
-    digitalDate.textContent = dateString.replace(/,/g, '');
+    digitalDate.textContent = dateString.replace(/,/g, "");
 
     // Fullscreen Digital Face Display
     if (mainDigitalTime && mainDigitalFooter) {
-      const weekdayShort = now.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
-      const monthDay = now.toLocaleDateString('en-US', { month: 'short', day: '2-digit' }).toUpperCase().replace(/,/g, '');
+      const weekdayShort = now
+        .toLocaleDateString("en-US", { weekday: "short" })
+        .toUpperCase();
+      const monthDay = now
+        .toLocaleDateString("en-US", { month: "short", day: "2-digit" })
+        .toUpperCase()
+        .replace(/,/g, "");
 
       renderDigitalTime(`${digitalHr}:${digitalMin}`);
-      const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-      digitalWeekdays.replaceChildren(...weekdays.map((day, index) => {
-        const label = document.createElement('span');
-        label.textContent = day;
-        if (index === now.getDay()) label.classList.add('today');
-        return label;
-      }));
+      const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+      digitalWeekdays.replaceChildren(
+        ...weekdays.map((day, index) => {
+          const label = document.createElement("span");
+          label.textContent = day;
+          if (index === now.getDay()) label.classList.add("today");
+          return label;
+        }),
+      );
       const month = String(now.getMonth() + 1);
-      const dayNumber = String(now.getDate()).padStart(2, '0');
+      const dayNumber = String(now.getDate()).padStart(2, "0");
       mainDigitalFooter.innerHTML = `<span>${month}</span><small>M</small><span>${dayNumber}</span><small>D</small>`;
     }
-    
+
     // Loop
     requestAnimationFrame(updateClock);
   }
-
-  // Day/Night icon integration
-  function updateCelestialIcon(now) {
-    const hour = now.getHours();
-    const nextIcon = (hour >= 18 || hour < 6) ? 'moon' : 'sun';
-
-    if (activeCelestialIcon === nextIcon) {
-      return;
-    }
-
-    activeCelestialIcon = nextIcon;
-    weatherIconContainer.innerHTML = celestialIcons[nextIcon];
-  }
-
 
   // Synthesize Ticking sound using Web Audio API
   function initAudio() {
     if (!audioContext) {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
     }
-    if (audioContext.state === 'suspended') {
+    if (audioContext.state === "suspended") {
       audioContext.resume();
     }
   }
 
   function playTickSound(time) {
     if (!audioContext) return;
-    
+
     // Synthesize escapement wheel clink (high pitch, fast decay)
     const osc = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     const filter = audioContext.createBiquadFilter();
-    
+
     osc.connect(filter);
     filter.connect(gainNode);
     gainNode.connect(audioContext.destination);
-    
+
     // Type of oscillator
-    osc.type = 'triangle';
+    osc.type = "triangle";
     osc.frequency.setValueAtTime(5800, time); // High pitched escapement tick
     osc.frequency.exponentialRampToValueAtTime(3200, time + 0.006);
-    
+
     // High pass filter to strip out low-end thuds
-    filter.type = 'highpass';
+    filter.type = "highpass";
     filter.frequency.setValueAtTime(3500, time);
-    
+
     // Envelopes for short mechanical sound duration
     gainNode.gain.setValueAtTime(0.06, time); // Low volume so it isn't annoying
     gainNode.gain.exponentialRampToValueAtTime(0.0001, time + 0.008);
-    
+
     osc.start(time);
     osc.stop(time + 0.01);
   }
@@ -228,20 +197,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setControlsMenuOpen(isOpen) {
     if (!controlsDropdown || !controlsToggleBtn) return;
-    controlsDropdown.classList.toggle('open', isOpen);
-    controlsToggleBtn.setAttribute('aria-expanded', String(isOpen));
+    controlsDropdown.classList.toggle("open", isOpen);
+    controlsToggleBtn.setAttribute("aria-expanded", String(isOpen));
   }
 
   function getPosition() {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Location is not available in this browser.'));
+        reject(new Error("Location is not available in this browser."));
         return;
       }
       navigator.geolocation.getCurrentPosition(
-        ({ coords }) => resolve({ latitude: coords.latitude, longitude: coords.longitude }),
-        () => reject(new Error('Allow location access to show local weather.')),
-        { enableHighAccuracy: false, maximumAge: 15 * 60 * 1000, timeout: 12000 }
+        ({ coords }) =>
+          resolve({ latitude: coords.latitude, longitude: coords.longitude }),
+        () => reject(new Error("Allow location access to show local weather.")),
+        {
+          enableHighAccuracy: false,
+          maximumAge: 15 * 60 * 1000,
+          timeout: 12000,
+        },
       );
     });
   }
@@ -249,82 +223,92 @@ document.addEventListener('DOMContentLoaded', () => {
   async function refreshPanelTemperature() {
     if (!panelTemperature || !panelTemperatureGroup) return;
     const requestId = ++weatherRequestId;
-    panelTemperatureGroup.title = 'Getting your local temperature…';
+    panelTemperatureGroup.title = "Getting your local temperature…";
     try {
       const { latitude, longitude } = await getPosition();
       const params = new URLSearchParams({
-        latitude: String(latitude), longitude: String(longitude),
-        current: 'temperature_2m', temperature_unit: 'celsius', timezone: 'auto'
+        latitude: String(latitude),
+        longitude: String(longitude),
+        current: "temperature_2m",
+        temperature_unit: "celsius",
+        timezone: "auto",
       });
-      const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
-      if (!response.ok) throw new Error('Weather service is unavailable.');
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?${params}`,
+      );
+      if (!response.ok) throw new Error("Weather service is unavailable.");
       const weather = await response.json();
       const temperature = weather.current?.temperature_2m;
-      if (!Number.isFinite(temperature)) throw new Error('Temperature data is unavailable.');
+      if (!Number.isFinite(temperature))
+        throw new Error("Temperature data is unavailable.");
       if (requestId !== weatherRequestId) return;
-      panelTemperature.textContent = String(Math.round(temperature));
+      const roundedTemperature = String(Math.round(temperature));
+      panelTemperature.textContent = roundedTemperature;
+      if (weatherTemperature)
+        weatherTemperature.textContent = roundedTemperature;
       panelTemperatureGroup.title = `Current temperature near your location: ${temperature.toFixed(1)}°C. Weather data: Open-Meteo.`;
     } catch (error) {
       if (requestId !== weatherRequestId) return;
-      panelTemperature.textContent = '--';
-      panelTemperatureGroup.title = error.message || 'Unable to load local weather.';
+      panelTemperature.textContent = "--";
+      if (weatherTemperature) weatherTemperature.textContent = "--";
+      panelTemperatureGroup.title =
+        error.message || "Unable to load local weather.";
     }
   }
 
   function setFaceMode(isDigitalMode) {
     if (isDigitalMode) {
-      document.body.classList.add('face-mode-digital');
-      if (controlsFaceTitle) controlsFaceTitle.textContent = 'DIGITAL CLOCK';
-      refreshPanelTemperature();
-      if (weatherRefreshId) clearInterval(weatherRefreshId);
-      weatherRefreshId = setInterval(refreshPanelTemperature, 15 * 60 * 1000);
+      document.body.classList.add("face-mode-digital");
+      if (controlsFaceTitle) controlsFaceTitle.textContent = "DIGITAL CLOCK";
     } else {
-      document.body.classList.remove('face-mode-digital');
-      if (controlsFaceTitle) controlsFaceTitle.textContent = 'MECHANICAL FACE';
-      weatherRequestId++;
-      if (weatherRefreshId) clearInterval(weatherRefreshId);
-      weatherRefreshId = null;
+      document.body.classList.remove("face-mode-digital");
+      if (controlsFaceTitle) controlsFaceTitle.textContent = "MECHANICAL FACE";
     }
   }
 
   // --- Event Listeners & Theme Handlers ---
-  
+
   // Theme Selectors
-  document.querySelectorAll('.theme-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  document.querySelectorAll(".theme-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
       const targetBtn = e.currentTarget;
-      const theme = targetBtn.getAttribute('data-theme');
-      
+      const theme = targetBtn.getAttribute("data-theme");
+
       // Update active state in panel UI
-      document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
-      targetBtn.classList.add('active');
-      
+      document
+        .querySelectorAll(".theme-btn")
+        .forEach((b) => b.classList.remove("active"));
+      targetBtn.classList.add("active");
+
       // Switch theme class while preserving current mode/state classes
-      document.body.classList.remove('theme-gold', 'theme-cyan', 'theme-emerald', 'theme-orange');
+      document.body.classList.remove(
+        "theme-gold",
+        "theme-cyan",
+        "theme-emerald",
+        "theme-orange",
+      );
       document.body.classList.add(`theme-${theme}`);
-      
+
       // Toggle Lume active class styling mapping if checked
       if (lumeToggle.checked) {
-        document.body.classList.add('lume-active');
+        document.body.classList.add("lume-active");
       }
-      
     });
   });
 
   // Lume Mode Switcher
-  lumeToggle.addEventListener('change', (e) => {
+  lumeToggle.addEventListener("change", (e) => {
     if (e.target.checked) {
-      document.body.classList.add('lume-active');
-      document.getElementById('watchDial').classList.add('lume-active');
+      document.body.classList.add("lume-active");
+      document.getElementById("watchDial").classList.add("lume-active");
     } else {
-      document.body.classList.remove('lume-active');
-      document.getElementById('watchDial').classList.remove('lume-active');
+      document.body.classList.remove("lume-active");
+      document.getElementById("watchDial").classList.remove("lume-active");
     }
   });
 
-
   // Audio Tick-tock Switcher
-  soundToggle.addEventListener('change', (e) => {
+  soundToggle.addEventListener("change", (e) => {
     if (e.target.checked) {
       startTicking();
     } else {
@@ -333,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (hourFormatToggle) {
-    hourFormatToggle.addEventListener('change', (e) => {
+    hourFormatToggle.addEventListener("change", (e) => {
       use24HourFormat = e.target.checked;
     });
 
@@ -341,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (faceModeToggle) {
-    faceModeToggle.addEventListener('change', (e) => {
+    faceModeToggle.addEventListener("change", (e) => {
       setFaceMode(e.target.checked);
     });
 
@@ -349,19 +333,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (controlsToggleBtn && controlsDropdown) {
-    controlsToggleBtn.addEventListener('click', () => {
-      setControlsMenuOpen(!controlsDropdown.classList.contains('open'));
+    controlsToggleBtn.addEventListener("click", () => {
+      setControlsMenuOpen(!controlsDropdown.classList.contains("open"));
     });
 
-    document.addEventListener('click', (e) => {
-      if (!controlsDropdown.classList.contains('open')) return;
+    document.addEventListener("click", (e) => {
+      if (!controlsDropdown.classList.contains("open")) return;
       if (!controlsDropdown.contains(e.target)) {
         setControlsMenuOpen(false);
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         setControlsMenuOpen(false);
       }
     });
@@ -369,16 +353,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bootstrapping the Watch face
   initTicks();
-  updateCelestialIcon(new Date());
+  refreshPanelTemperature();
+  setInterval(refreshPanelTemperature, 15 * 60 * 1000);
   updateClock();
 
   // Register Service Worker for PWA
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch(err => {
-        console.log('Service Worker registration failed:', err);
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch((err) => {
+        console.log("Service Worker registration failed:", err);
       });
     });
   }
 });
-
