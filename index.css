@@ -848,6 +848,28 @@ body.face-mode-digital .main-digital-inner {
   pointer-events: auto;
 }
 
+.weather-page-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 13px;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.weather-page-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .dashboard-header.compact h1 {
   font-size: 18px;
   margin-bottom: 0;

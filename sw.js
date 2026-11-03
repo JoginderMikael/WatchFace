@@ -1,24 +1,27 @@
-const CACHE_NAME = 'mechanical-face-v3';
+const CACHE_NAME = "mechanical-face-v4";
 const ASSETS = [
-  './',
-  './index.html',
-  './index.css',
-  './index.js',
-  './digital-7.ttf',
-  './manifest.json'
+  "./",
+  "./index.html",
+  "./index.css",
+  "./index.js",
+  "./weather.html",
+  "./weather.css",
+  "./weather.js",
+  "./digital-7.ttf",
+  "./manifest.json",
 ];
 
 // Install Event - cache core static resources
-self.addEventListener('install', (e) => {
+self.addEventListener("install", (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS).then(() => self.skipWaiting());
-    })
+    }),
   );
 });
 
 // Activate Event - clear old caches
-self.addEventListener('activate', (e) => {
+self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
@@ -26,15 +29,15 @@ self.addEventListener('activate', (e) => {
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
-        })
+        }),
       ).then(() => self.clients.claim());
-    })
+    }),
   );
 });
 
 // Fetch Event - network first (with cache fallback)
-self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET') {
+self.addEventListener("fetch", (e) => {
+  if (e.request.method !== "GET") {
     return;
   }
 
@@ -54,7 +57,6 @@ self.addEventListener('fetch', (e) => {
       })
       .catch(() => {
         return caches.match(e.request);
-      })
-    
+      }),
   );
 });

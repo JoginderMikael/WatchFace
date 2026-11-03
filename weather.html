@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090c">
+  <meta name="description" content="Detailed local weather conditions and forecast.">
+  <title>Local Weather — Mechanical Face</title>
+  <link rel="stylesheet" href="weather.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <main class="weather-page">
+    <header class="page-header">
+      <a class="back-link" href="index.html" aria-label="Back to watch face">← <span>Watch face</span></a>
+      <div class="page-heading">
+        <p class="eyebrow">LOCAL FORECAST</p>
+        <h1>Weather details</h1>
+        <p class="location-line" id="locationLine">Waiting for location…</p>
+      </div>
+      <button class="refresh-button" id="refreshWeather" type="button">↻ <span>Refresh</span></button>
+    </header>
+
+    <p class="status-message" id="weatherStatus" role="status" aria-live="polite">Getting your location and latest forecast…</p>
+
+    <section class="weather-section current-section" aria-labelledby="currentHeading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">RIGHT NOW</p>
+          <h2 id="currentHeading">Current conditions</h2>
+        </div>
+        <p class="updated-label" id="updatedAt"></p>
+      </div>
+      <div class="metric-grid" id="currentMetrics"></div>
+    </section>
+
+    <section class="weather-section" aria-labelledby="hourlyHeading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">HOUR BY HOUR</p>
+          <h2 id="hourlyHeading">Next 24 hours</h2>
+        </div>
+        <p class="section-note">Scroll sideways to see every measurement</p>
+      </div>
+      <div class="table-scroll" id="hourlyTableWrap">
+        <p class="empty-state">Hourly forecast will appear here.</p>
+      </div>
+    </section>
+
+    <section class="weather-section" aria-labelledby="dailyHeading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LOOKING AHEAD</p>
+          <h2 id="dailyHeading">7-day forecast</h2>
+        </div>
+      </div>
+      <div class="daily-grid" id="dailyForecast"></div>
+    </section>
+
+    <footer class="page-footer">
+      <span>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></span>
+      <span id="apiMetadata"></span>
+    </footer>
+  </main>
+  <script src="weather.js"></script>
+</body>
+</html>
