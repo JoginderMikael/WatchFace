@@ -3,64 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#08090c">
-  <meta name="description" content="Detailed local weather conditions and forecast.">
-  <title>Local Weather — Mechanical Face</title>
+  <meta name="theme-color" content="#eef3ff">
+  <meta name="description" content="Your local weather conditions and forecast.">
+  <title>Weather — Mechanical Face</title>
   <link rel="stylesheet" href="weather.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <main class="weather-page">
-    <header class="page-header">
-      <a class="back-link" href="index.html" aria-label="Back to watch face">← <span>Watch face</span></a>
-      <div class="page-heading">
-        <p class="eyebrow">LOCAL FORECAST</p>
-        <h1>Weather details</h1>
-        <p class="location-line" id="locationLine">Waiting for location…</p>
-      </div>
-      <button class="refresh-button" id="refreshWeather" type="button">↻ <span>Refresh</span></button>
-    </header>
+  <main class="weather-app">
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="Weather home"><span class="brand-mark">☀️</span><span>Weather<span class="brand-accent">Pro</span></span></a>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="index.html"><span>◷</span> Watch face</a>
+        <a class="nav-link active" href="weather.html" aria-current="page"><span>⌂</span> Weather</a>
+      </nav>
+      <div class="sidebar-note"><span class="note-sun">✦</span><p>Know the weather,<br>plan better.</p><span class="note-rule"></span></div>
+    </aside>
 
-    <p class="status-message" id="weatherStatus" role="status" aria-live="polite">Getting your location and latest forecast…</p>
+    <div class="dashboard">
+      <header class="topbar">
+        <div class="title-block"><p class="eyebrow">YOUR LOCAL FORECAST</p><h1>Weather today</h1></div>
+        <div class="top-actions"><span class="unit-pill" aria-label="Temperature unit">°C</span><button class="refresh-button" id="refreshWeather" type="button"><span class="refresh-icon">↻</span><span>Refresh</span></button></div>
+      </header>
+      <p class="status-message" id="weatherStatus" role="status" aria-live="polite">Getting your location and latest forecast…</p>
 
-    <section class="weather-section current-section" aria-labelledby="currentHeading">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">RIGHT NOW</p>
-          <h2 id="currentHeading">Current conditions</h2>
+      <div class="content-grid">
+        <div class="main-column">
+          <section class="hero-card" aria-labelledby="currentHeading">
+            <div class="hero-sky" aria-hidden="true"><span class="sky-sun"></span><span class="sky-cloud cloud-one"></span><span class="sky-cloud cloud-two"></span><span class="mountain mountain-back"></span><span class="mountain mountain-front"></span></div>
+            <div class="hero-content">
+              <div class="hero-location"><span class="pin">⌖</span><div><h2 id="currentHeading">Current conditions</h2><p id="locationLine">Finding your location…</p></div></div>
+              <p class="hero-date" id="updatedAt">Local forecast</p>
+              <div class="hero-weather"><div><p class="temperature" id="heroTemperature">—<span>°C</span></p><p class="condition" id="heroCondition">Loading conditions</p></div><span class="weather-symbol" id="heroIcon" aria-hidden="true">☁️</span></div>
+              <div class="hero-facts" id="heroFacts"></div>
+            </div>
+          </section>
+
+          <section class="panel forecast-panel" aria-labelledby="hourlyHeading">
+            <div class="panel-heading"><div class="heading-title"><span class="heading-icon">◷</span><h2 id="hourlyHeading">Hourly forecast</h2></div><span class="panel-caption">Next 24 hours</span></div>
+            <div class="hourly-list" id="hourlyForecast"><p class="empty-state">Hourly forecast will appear here.</p></div>
+          </section>
+
+          <section class="panel forecast-panel" aria-labelledby="dailyHeading">
+            <div class="panel-heading"><div class="heading-title"><span class="heading-icon">▦</span><h2 id="dailyHeading">7-day forecast</h2></div><span class="panel-caption">The week ahead</span></div>
+            <div class="daily-list" id="dailyForecast"></div>
+          </section>
         </div>
-        <p class="updated-label" id="updatedAt"></p>
-      </div>
-      <div class="metric-grid" id="currentMetrics"></div>
-    </section>
 
-    <section class="weather-section" aria-labelledby="hourlyHeading">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">HOUR BY HOUR</p>
-          <h2 id="hourlyHeading">Next 24 hours</h2>
-        </div>
-        <p class="section-note">Scroll sideways to see every measurement</p>
+        <aside class="side-column" aria-label="Weather details">
+          <section class="panel highlights-panel" aria-labelledby="highlightsHeading">
+            <div class="panel-heading"><div class="heading-title"><span class="heading-icon">▥</span><h2 id="highlightsHeading">Today’s highlights</h2></div></div>
+            <div class="highlight-grid" id="highlights"></div>
+          </section>
+          <section class="panel details-panel" aria-labelledby="detailsHeading">
+            <div class="panel-heading"><div class="heading-title"><span class="heading-icon green">✦</span><h2 id="detailsHeading">More conditions</h2></div></div>
+            <div class="detail-list" id="currentMetrics"></div>
+          </section>
+          <section class="source-card"><span class="source-icon">◎</span><div><strong>Forecast you can plan around</strong><p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p><p id="apiMetadata"></p></div></section>
+        </aside>
       </div>
-      <div class="table-scroll" id="hourlyTableWrap">
-        <p class="empty-state">Hourly forecast will appear here.</p>
-      </div>
-    </section>
-
-    <section class="weather-section" aria-labelledby="dailyHeading">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">LOOKING AHEAD</p>
-          <h2 id="dailyHeading">7-day forecast</h2>
-        </div>
-      </div>
-      <div class="daily-grid" id="dailyForecast"></div>
-    </section>
-
-    <footer class="page-footer">
-      <span>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></span>
-      <span id="apiMetadata"></span>
-    </footer>
+    </div>
   </main>
   <script src="weather.js"></script>
 </body>
